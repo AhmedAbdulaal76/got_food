@@ -60,40 +60,40 @@ class GotFoodTheme {
 
   static ThemeData get darkTheme {
     return ThemeData.dark().copyWith(
-      colorScheme: ColorScheme.fromSwatch(
-        primarySwatch: MaterialColor(
-          ThemeColors.primaryColor.value,
-          const <int, Color>{
-            50: ThemeColors.primaryColorLight,
-            100: ThemeColors.primaryColorLight,
-            200: ThemeColors.primaryColorLight,
-            300: ThemeColors.primaryColorLight,
-            400: ThemeColors.primaryColor,
-            500: ThemeColors.primaryColor,
-            600: ThemeColors.primaryColor,
-            700: ThemeColors.primaryColorDark,
-            800: ThemeColors.primaryColorDark,
-            900: ThemeColors.primaryColorDark,
-          },
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: MaterialColor(
+            ThemeColors.primaryColor.value,
+            const <int, Color>{
+              50: ThemeColors.primaryColorLight,
+              100: ThemeColors.primaryColorLight,
+              200: ThemeColors.primaryColorLight,
+              300: ThemeColors.primaryColorLight,
+              400: ThemeColors.primaryColor,
+              500: ThemeColors.primaryColor,
+              600: ThemeColors.primaryColor,
+              700: ThemeColors.primaryColorDark,
+              800: ThemeColors.primaryColorDark,
+              900: ThemeColors.primaryColorDark,
+            },
+          ),
+          accentColor: ThemeColors.accentColor,
+        ).copyWith(
+          onPrimary: ThemeColors.primaryTextColor,
+          onSecondary: ThemeColors.secondaryTextColor,
+          surface: ThemeColors.primaryColor,
+          onSurface: ThemeColors.primaryTextColor,
+          error: Colors.red,
+          onError: Colors.white,
+          brightness: Brightness.dark,
         ),
-        accentColor: ThemeColors.accentColor,
-      ).copyWith(
-        onPrimary: ThemeColors.primaryTextColor,
-        onSecondary: ThemeColors.secondaryTextColor,
-        surface: ThemeColors.primaryColor,
-        onSurface: ThemeColors.primaryTextColor,
-        error: Colors.red,
-        onError: Colors.white,
-        brightness: Brightness.dark,
-      ),
-      cardTheme: const CardTheme().copyWith(
-        color: ThemeColors.primaryColorDark,
-        margin: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
+        cardTheme: const CardTheme().copyWith(
+          color: ThemeColors.primaryColorDark,
+          margin: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
         ),
-      ),
-      elevatedButtonTheme: ElevatedTheme.theme,
-    );
+        elevatedButtonTheme: ElevatedTheme.theme,
+        textTheme: ThemeTextStyles.textTheme);
   }
 }

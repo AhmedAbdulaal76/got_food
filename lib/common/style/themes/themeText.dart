@@ -21,6 +21,16 @@ class ThemeTextStyles {
   );
   static const bodySmall = TextStyle(
     fontSize: 12,
-    color: Colors.black,
   );
+
+  static TextTheme get textTheme {
+    return const TextTheme(
+      titleLarge: titleLarge,
+      titleMedium: titleMedium,
+      titleSmall: titleSmall,
+      bodyLarge: bodyLarge,
+      bodyMedium: bodyMedium,
+      bodySmall: bodySmall,
+    );
+  }
 }
