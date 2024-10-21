@@ -2,31 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'themes/buttons/elevated_button.dart';
 import 'themes/themeColors.dart';
-
-class ThemeTextStyles {
-  static const titleLarge = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-  );
-  static const titleMedium = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 14,
-  );
-  static const titleSmall = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 12,
-  );
-  static const bodyLarge = TextStyle(
-    fontSize: 16,
-  );
-  static const bodyMedium = TextStyle(
-    fontSize: 14,
-  );
-  static const bodySmall = TextStyle(
-    fontSize: 12,
-    color: Colors.black,
-  );
-}
+import 'themes/themeText.dart';
 
 class GotFoodTheme {
   static final ColorScheme kColorScheme = ColorScheme.fromSwatch(
