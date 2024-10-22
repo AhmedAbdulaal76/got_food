@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/style/themes/forms/inputStyle.dart';
 
 import 'themes/buttons/elevated_button.dart';
 import 'themes/themeColors.dart';
@@ -47,14 +48,8 @@ class GotFoodTheme {
         ),
       ),
       elevatedButtonTheme: ElevatedTheme.theme,
-      textTheme: ThemeData().textTheme.copyWith(
-            displayLarge: ThemeTextStyles.titleLarge,
-            displayMedium: ThemeTextStyles.titleMedium,
-            displaySmall: ThemeTextStyles.titleSmall,
-            bodyLarge: ThemeTextStyles.bodyLarge,
-            bodyMedium: ThemeTextStyles.bodyMedium,
-            bodySmall: ThemeTextStyles.bodySmall,
-          ),
+      textTheme: ThemeTextStyles.textTheme,
+      inputDecorationTheme: InputStyle.inputStyle,
     );
   }
 
