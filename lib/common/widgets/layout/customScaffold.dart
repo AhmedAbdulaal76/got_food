@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/widgets/layout/bottom-navbar/customBottomNav.dart';
 
 class CustomScaffold extends StatelessWidget {
   const CustomScaffold({
@@ -17,6 +18,7 @@ class CustomScaffold extends StatelessWidget {
         title: Text(title),
       ),
       body: body,
+      bottomNavigationBar: const CustomBottomNav(),
     );
   }
 }
