@@ -1,40 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:got_food/common/style/theme.dart';
+import 'package:got_food/core/appProviders.dart';
+import 'package:got_food/core/locator.dart';
 import 'package:got_food/features/home/home-view/widgets/homePage.dart';
+import 'package:provider/provider.dart';
 
-import 'common/style/themes/themeColors.dart';
-
-var kColorScheme = ColorScheme.fromSeed(
-  seedColor: ThemeColors.primaryColor,
-);
-
-var kDarkColorScheme = ColorScheme.fromSeed(
-  brightness: Brightness.dark,
-  seedColor: const Color.fromARGB(255, 5, 99, 125),
-);
-
-void main() {
+void main() async {
+  await dotenv.load(fileName: ".env");
+  setupLocator();
   runApp(
-    MaterialApp(
-      // darkTheme: ThemeData.dark().copyWith(
-      //   colorScheme: kColorScheme,
-      //   cardTheme: const CardTheme().copyWith(
-      //     color: kDarkColorScheme.secondaryContainer,
-      //     margin: const EdgeInsets.symmetric(
-      //       horizontal: 16,
-      //       vertical: 8,
-      //     ),
-      //   ),
-      //   elevatedButtonTheme: ElevatedButtonThemeData(
-      //     style: ElevatedButton.styleFrom(
-      //       backgroundColor: kDarkColorScheme.primaryContainer,
-      //       foregroundColor: kDarkColorScheme.onPrimaryContainer,
-      //     ),
-      //   ),
-      // ),
-      theme: GotFoodTheme.theme,
-      // themeMode: ThemeMode.system, // default
-      home: const HomePage(),
+    MultiProvider(
+      providers: appProviders,
+      child: const MyApp(),
     ),
   );
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: GotFoodTheme.theme,
+      themeMode: ThemeMode.system, // default
+      home: const HomePage(),
+    );
+  }
 }
