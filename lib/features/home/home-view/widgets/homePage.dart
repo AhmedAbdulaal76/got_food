@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
+import 'package:got_food/common/widgets/recipe-card/recipesCard.dart';
 import 'package:got_food/features/home/home-view/widgets/homeHeader.dart';
-import 'package:got_food/features/home/home-view/widgets/recipe-card/recipesCard.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,7 +17,10 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               const HomeHeader(),
-              const RecipesCard(),
+              const RecipesCard(
+                imageUrl:
+                    'https://www.dishgen.com/_next/image?url=https%3A%2F%2Fupcdn.io%2FW142hmp%2Frecipe%2Fuploads%2F2023%2F04%2F19%2FQuinoa-Skillet-7YXS.jpg.webp.crop&w=828&q=75',
+              ),
               const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
