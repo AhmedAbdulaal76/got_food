@@ -56,7 +56,7 @@ class RecipeImage extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(
-                  color: ThemeColors.primaryColorLight,
+                  color: ThemeColors.primaryColor,
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: const Icon(

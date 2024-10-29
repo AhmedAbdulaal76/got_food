@@ -11,11 +11,11 @@ class RecipesCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(vertical: 24),
+      margin: const EdgeInsetsDirectional.only(end: 16, top: 16),
       height: 240,
       width: 200,
       decoration: BoxDecoration(
-        color: ThemeColors.primaryColorBright,
+        color: ThemeColors.primaryColorLight,
         borderRadius: BorderRadius.circular(9),
         boxShadow: <BoxShadow>[
           BoxShadow(
