@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/category.dart';
-import 'package:got_food/common/providers/CategoryProvider.dart';
+import 'package:got_food/common/providers/CategoryViewModel.dart';
 import 'package:got_food/common/widgets/layout/recipesLayout.dart';
 import 'package:got_food/features/home/home-view/widgets/categoryTabs/tabItem.dart';
 import 'package:provider/provider.dart';
