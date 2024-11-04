@@ -4,10 +4,17 @@ import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/core/appProviders.dart';
 import 'package:got_food/core/locator.dart';
 import 'package:got_food/features/home/home-view/widgets/homePage.dart';
+import 'package:got_food/routes.dart';
 import 'package:provider/provider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() async {
+Future<void> main() async {
   await dotenv.load(fileName: ".env");
+  await Supabase.initialize(
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
+    debug: true,
+  );
   setupLocator();
   runApp(
     MultiProvider(
@@ -17,6 +24,8 @@ void main() async {
   );
 }
 
+final supabase = Supabase.instance.client;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,6 +34,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: GotFoodTheme.theme,
       themeMode: ThemeMode.system, // default
+      initialRoute: '/home',
+      routes: routes,
       home: const HomePage(),
     );
   }
