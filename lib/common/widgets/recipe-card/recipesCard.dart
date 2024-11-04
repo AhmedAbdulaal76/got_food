@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/recipe-card/recipeImage.dart';
 
-class RecipesCard extends StatelessWidget {
-  const RecipesCard({super.key, required this.imageUrl});
+import '../../models/recipe.dart';
 
-  final String imageUrl;
+class RecipesCard extends StatelessWidget {
+  const RecipesCard({super.key, required this.recipe});
+
+  final Recipe recipe;
 
   @override
   Widget build(BuildContext context) {
@@ -25,34 +27,46 @@ class RecipesCard extends StatelessWidget {
           ),
         ],
       ),
+      // recipe image, description, calories, time
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
+          // recipe image
           RecipeImage(
-            imageUrl: imageUrl,
+            imageUrl: recipe.imageUrl,
           ),
           const SizedBox(height: 8),
-          const Text(
-            "wowowo vvery yummy healthy food amazing salad you canty pay for your own freedoom i ate mondi today mutton mandi",
+          // recipe description
+          Text(
+            recipe.description,
             maxLines: 2,
-            style: TextStyle(
+            style: const TextStyle(
                 color: ThemeColors.primaryColorDark,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis),
           ),
           const SizedBox(height: 8),
+          // calories and time
           Expanded(
             child: Row(
               children: [
-                Text("120 Kcal • ",
+                RichText(
+                  text: TextSpan(
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: ThemeColors.primaryColorDark,
-                        )),
-                Text(
-                  "20 min",
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: ThemeColors.primaryColorDark,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: '${recipe.calories} Kcal • ',
                       ),
+                      TextSpan(
+                        text: recipe.time < 60
+                            ? '${recipe.time} min'
+                            : '${recipe.time ~/ 60} hr ${recipe.time % 60} min',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
