@@ -31,35 +31,40 @@ class _CategoryTabsState extends State<CategoryTabs> {
     viewModel
         .fetchRecipesByCategory(widget.categories[selectedIndex].categoryId);
 
-    Widget content = Column(
-      children: [
-        // category tabs
-        TabItem(
-          onTabSelected: onTabSelected,
-          categories: widget.categories,
-          selectedIndex: selectedIndex,
-        ),
-        viewModel.fetchedMap[widget.categories[selectedIndex].categoryId]!
-                .isEmpty
-            // no recipes message
-            ? Padding(
-                padding: const EdgeInsets.all(18),
-                child: Text(
-                  'No recipes for this category yet :(',
-                  style: Theme.of(context).textTheme.bodyLarge,
+    Widget content;
+    if (viewModel.isRecipesLoading) {
+      content = const CircularProgressIndicator();
+    } else {
+      content = Column(
+        children: [
+          // category tabs
+          TabItem(
+            onTabSelected: onTabSelected,
+            categories: widget.categories,
+            selectedIndex: selectedIndex,
+          ),
+          viewModel.fetchedMap[widget.categories[selectedIndex].categoryId]!
+                  .isEmpty
+              // no recipes message
+              ? Padding(
+                  padding: const EdgeInsets.all(18),
+                  child: Text(
+                    'No recipes for this category yet :(',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                )
+              // recipes layout
+              : SizedBox(
+                  height: 270,
+                  child: viewModel.isRecipesLoading
+                      ? const CircularProgressIndicator()
+                      : RecipesLayout(
+                          recipes: viewModel.fetchedMap[
+                              widget.categories[selectedIndex].categoryId]!),
                 ),
-              )
-            // recipes layout
-            : SizedBox(
-                height: 270,
-                child: viewModel.isRecipesLoading
-                    ? const CircularProgressIndicator()
-                    : RecipesLayout(
-                        recipes: viewModel.fetchedMap[
-                            widget.categories[selectedIndex].categoryId]!),
-              ),
-      ],
-    );
+        ],
+      );
+    }
 
     return content;
   }
