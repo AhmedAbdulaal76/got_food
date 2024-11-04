@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/category.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 
 class CategoryCard extends StatelessWidget {
   CategoryCard({
     super.key,
-    required this.name,
     this.isSelected = false,
+    required this.category,
   });
 
-  final String name;
   bool isSelected;
+  Category category;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsetsDirectional.only(end: 8),
       height: 41,
       width: 124,
       decoration: BoxDecoration(
@@ -23,10 +23,9 @@ class CategoryCard extends StatelessWidget {
             : ThemeColors.primaryColorLight,
         borderRadius: BorderRadius.circular(50),
       ),
-      child: TextButton(
-        onPressed: () {},
+      child: Center(
         child: Text(
-          name,
+          category.name,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: isSelected ? Colors.white : ThemeColors.primaryColorDark),
         ),

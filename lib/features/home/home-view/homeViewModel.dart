@@ -1,6 +1,8 @@
 // This class is a view model for the home page to manage data fetched from home service
 
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/category.dart';
+import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/features/home/home_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
@@ -8,29 +10,26 @@ class HomeViewModel extends ChangeNotifier {
 
   HomeViewModel(this._homeService);
 
-  List<dynamic> categories = [];
-
+  List<Category> categories = [];
   Future<void> fetchCategories() async {
-    var response = await _homeService.fetchCategories();
-    if (response != null) {
-      categories = response;
+    try {
+      List<dynamic> response = await _homeService.fetchCategories();
+      categories = response.map((e) => Category.fromJson(e)).toList();
+    } catch (e) {
+      print('[Home View Model] Error fetching categories: $e');
+    } finally {
       notifyListeners();
     }
   }
 
-  List<dynamic> recipes = [];
-  bool isRecipesLoading = true;
-
+  List<Recipe> recipes = [];
   Future<void> fetchRecipes() async {
     try {
-      var response = await _homeService.fetchRecipes();
-      if (response != null) {
-        recipes = response;
-      }
+      List<dynamic> response = await _homeService.fetchRecipes();
+      recipes = response.map((e) => Recipe.fromJson(e)).toList();
     } catch (e) {
       print('[Home View Model] Error fetching recipes: $e');
     } finally {
-      isRecipesLoading = false;
       notifyListeners();
     }
   }
