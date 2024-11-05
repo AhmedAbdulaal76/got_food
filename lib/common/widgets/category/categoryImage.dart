@@ -12,38 +12,32 @@ class CategoryImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 168,
-      height: 128,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: ThemeColors.primaryColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            color: ThemeColors.primaryColorDark.withOpacity(0.3),
-            blurRadius: 10,
-            offset: const Offset(4, 6),
-          ),
-        ],
-      ),
-      child: CachedNetworkImage(
-        imageUrl: imageUrl,
-        imageBuilder: (context, imageProvider) => Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+    return CachedNetworkImage(
+      height: 100,
+      width: 128,
+      imageUrl: imageUrl,
+      imageBuilder: (context, imageProvider) => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: ThemeColors.primaryColorDark.withOpacity(0.3),
+              blurRadius: 10,
+              offset: const Offset(4, 6),
             ),
+          ],
+          image: DecorationImage(
+            image: imageProvider,
+            fit: BoxFit.cover,
           ),
         ),
-        placeholder: (context, url) => const Icon(
-          Icons.fastfood_rounded,
-          size: 64,
-          color: Colors.white,
-        ),
-        errorWidget: (context, url, error) => const Icon(Icons.error),
       ),
+      placeholder: (context, url) => const Icon(
+        Icons.fastfood_rounded,
+        size: 64,
+        color: Colors.white,
+      ),
+      errorWidget: (context, url, error) => const Icon(Icons.error),
     );
   }
 }
