@@ -20,7 +20,7 @@ class AuthService {
       required String username}) async {
     try {
       final AuthResponse res = await supabase.auth.signUp(
-          email: email, password: password, data: {'username': username});
+          email: email, password: password, data: {'display_name': username});
       return res;
     } catch (e) {
       print('[Auth Service] Sign up error: $e');
