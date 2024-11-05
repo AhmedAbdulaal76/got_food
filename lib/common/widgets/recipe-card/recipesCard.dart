@@ -5,15 +5,20 @@ import 'package:got_food/common/widgets/recipe-card/recipeImage.dart';
 import '../../models/recipe.dart';
 
 class RecipesCard extends StatelessWidget {
-  const RecipesCard({super.key, required this.recipe});
+  const RecipesCard({super.key, required this.recipe, this.setGrid = false});
 
   final Recipe recipe;
+  final bool setGrid;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsetsDirectional.only(end: 16, top: 16),
+      padding: setGrid
+          ? const EdgeInsets.symmetric(horizontal: 12, vertical: 20)
+          : const EdgeInsets.all(16),
+      margin: setGrid
+          ? const EdgeInsets.symmetric(horizontal: 8, vertical: 16)
+          : const EdgeInsetsDirectional.only(end: 16, top: 12),
       height: 240,
       width: 200,
       decoration: BoxDecoration(
