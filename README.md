@@ -1,3 +1,17 @@
+# Workflow
+## How to start?
+1. clone the project
+2. run `flutter pub get` in the terminal
+3. create `.env` file
+
+## Contributing
+after setting up the project, start by making a branch for your specific contribution, e.g., `feature/home-container`, or `fix/filter`. Check the project structure below to better understand the naming & structure. 
+
+**Notes:** 
+- If the container doesn't exist, e.g., `home-container`, make the new container and choose the source as `dev` branch.
+- in case that container exists, and you want to make a *sub feature*, e.g., `categories-view`, then make branch `feature/categories-view` and choose the source as `feature/home-container`. 
+- create a pull request to parent container or `dev` branch after you finish. 
+
 # Overview
 
 ## Got Food?

@@ -11,4 +11,8 @@ class ThemeColors {
   static const primaryTextColor = Color(0xFFFFFFFF);
   static const secondaryTextColor = Color(0xFF757574);
   static const dividerColor = Color(0xFFBDBDBC);
+  static const primaryGrey = Color.fromARGB(255, 202, 202, 202);
+  static const errorColor = Color(0xFFD32F2F);
+  static const successColor = Color(0xFF388E3C);
+  static const warningColor = Color(0xFFE64A19);
 }

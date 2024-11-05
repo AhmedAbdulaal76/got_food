@@ -3,9 +3,10 @@ import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/common/widgets/layout/recipesLayout.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
-import 'package:got_food/features/home/home-view/widgets/categoryTabs/category_tabs.dart';
 import 'package:got_food/features/home/home-view/widgets/homeHeader.dart';
 import 'package:provider/provider.dart';
+
+import 'categoryTabs/categoryTabs.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -53,52 +54,23 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                         ),
                   ),
-                  Text('See All',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ThemeColors.secondaryTextColor))
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home/categories');
+                    },
+                    child: Text('See All',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: ThemeColors.secondaryTextColor)),
+                  )
                 ],
               ),
               const SizedBox(height: 12),
-              // show categories
-              // viewModel.categories.isEmpty
-              //     ? const CircularProgressIndicator()
-              //     : SizedBox(
-              //         height: 41,
-              //         width: 453,
-              //         child: ListView.builder(
-              //           itemCount: viewModel.categories.length,
-              //           clipBehavior: Clip.none,
-              //           scrollDirection: Axis.horizontal,
-              //           itemBuilder: (context, index) {
-              //             if (index == 0) {
-              //               return CategoryCard(
-              //                 isSelected: true,
-              //                 category: viewModel.categories[index],
-              //               );
-              //             }
-              //             return CategoryCard(
-              //               category: viewModel.categories[index],
-              //             );
-              //           },
-              //         ),
-              //       ),
-
-              // trying to show categories as tabs
+              // show categories as tabs
               viewModel.categories.isEmpty
                   ? const CircularProgressIndicator()
                   : CategoryTabs(categories: viewModel.categories),
-
-              // show list of recipes
-              //   viewModel.recipes.isEmpty
-              //       ? const CircularProgressIndicator()
-              //       : SizedBox(
-              //           height: 270,
-              //           width: 500,
-              //           child: RecipesLayout(recipes: viewModel.recipes),
-              //         ),
-              // ],
             ],
           ),
         ),
