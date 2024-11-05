@@ -54,11 +54,16 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.normal,
                         ),
                   ),
-                  Text('See All',
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(color: ThemeColors.secondaryTextColor))
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/home/categories');
+                    },
+                    child: Text('See All',
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(color: ThemeColors.secondaryTextColor)),
+                  )
                 ],
               ),
               const SizedBox(height: 12),
