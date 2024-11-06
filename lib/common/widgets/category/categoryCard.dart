@@ -17,6 +17,8 @@ class CategoryCard extends StatelessWidget {
       onTap: () {
         // Navigate to the category recipes page
         print('Navigate to the category recipes page');
+        Navigator.pushNamed(context, '/home/categories/details',
+            arguments: category);
       },
       child: Container(
         margin: const EdgeInsets.all(8),
