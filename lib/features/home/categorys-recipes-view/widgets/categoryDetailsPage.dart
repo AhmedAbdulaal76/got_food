@@ -21,6 +21,8 @@ class CategoryDetailsPage extends StatelessWidget {
     Widget content;
     if (viewModel.isRecipesLoading) {
       content = const CircularProgressIndicator();
+    } else if (viewModel.fetchedMap[category.categoryId]!.isEmpty) {
+      content = const Center(child: Text('No recipes found'));
     } else {
       content = RecipesLayout(
           recipes: viewModel.fetchedMap[category.categoryId]!, setGrid: true);
