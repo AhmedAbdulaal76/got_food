@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/recipe-card/recipeImage.dart';
 
 import '../../models/recipe.dart';
@@ -23,17 +22,16 @@ class RecipesCard extends StatelessWidget {
       height: 240,
       width: 200,
       decoration: BoxDecoration(
-        color: ThemeColors.primaryColorLight,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(9),
         boxShadow: <BoxShadow>[
           BoxShadow(
-            color: ThemeColors.primaryColorDark.withOpacity(0.5),
+            color: Colors.black.withOpacity(0.3),
             blurRadius: 8,
             offset: const Offset(2, 4),
           ),
         ],
       ),
-      // recipe image, description, calories, time
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment:
@@ -45,21 +43,13 @@ class RecipesCard extends StatelessWidget {
             setFullView: setFullView,
           ),
           const SizedBox(height: 8),
-          // // recipe subtitle
-          // setFullView
-          //     ? Text(
-          //         recipe.subtitle,
-          //         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-          //               color: ThemeColors.primaryColorDark,
-          //             ),
-          //       )
-          //     : const SizedBox.shrink(),
           // recipe description
           Text(
             recipe.description,
             maxLines: 2,
-            style: const TextStyle(
-                color: ThemeColors.primaryColorDark,
+            style: TextStyle(
+                // color: ThemeColors.primaryColorDark,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis),
@@ -72,8 +62,8 @@ class RecipesCard extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: ThemeColors.primaryColorDark,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
                           fontSize: setFullView ? 16 : null,
                         ),
                     children: [
@@ -92,17 +82,22 @@ class RecipesCard extends StatelessWidget {
                 setFullView
                     ? Row(
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.thumb_up,
-                            color: ThemeColors.primaryColorDark,
+                            // color: ThemeColors.primaryColorDark,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                           const SizedBox(width: 4),
                           Text(
                             recipe.likes.toString(),
-                            style:
-                                Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: ThemeColors.primaryColorDark,
-                                    ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                  // color: ThemeColors.primaryColorDark,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
                           ),
                         ],
                       )

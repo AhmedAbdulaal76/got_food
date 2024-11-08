@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/category.dart';
-import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/category/categoryImage.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -27,12 +26,12 @@ class CategoryCard extends StatelessWidget {
           horizontal: 10,
         ),
         decoration: BoxDecoration(
-          color: ThemeColors.primaryColorLight,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: ThemeColors.primaryColorDark.withOpacity(0.5),
-              blurRadius: 6,
+              color: Colors.black.withOpacity(0.3),
+              blurRadius: 5,
               offset: const Offset(0, 3),
             ),
           ],
@@ -45,10 +44,7 @@ class CategoryCard extends StatelessWidget {
             // Display category name
             Text(
               category.name,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: ThemeColors.primaryColorDark),
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ],
         ),

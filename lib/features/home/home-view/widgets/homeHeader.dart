@@ -12,10 +12,13 @@ class HomeHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Hello, Username",
-                style: Theme.of(context).textTheme.headlineLarge),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineMedium
+                    ?.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
             Text("Featured Recipes",
-                style: Theme.of(context).textTheme.bodyLarge),
+                style: Theme.of(context).textTheme.headlineSmall),
           ],
         ),
         const CircleAvatar(

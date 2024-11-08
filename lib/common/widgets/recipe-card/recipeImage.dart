@@ -28,7 +28,7 @@ class RecipeImage extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: ThemeColors.primaryColorDark.withOpacity(0.3),
+                  color: Colors.black.withOpacity(0.3),
                   blurRadius: 10,
                   offset: const Offset(4, 6),
                 ),
@@ -38,7 +38,11 @@ class RecipeImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   colorFilter: setFullView
                       ? ColorFilter.mode(
-                          Colors.black.withOpacity(0.3),
+                          // Colors.black.withOpacity(0.3),
+                          Theme.of(context)
+                              .colorScheme
+                              .onPrimary
+                              .withOpacity(0.3),
                           BlendMode.darken,
                         )
                       : null),
