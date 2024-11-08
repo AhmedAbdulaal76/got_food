@@ -25,7 +25,8 @@ class CategoryDetailsPage extends StatelessWidget {
       content = const Center(child: Text('No recipes found'));
     } else {
       content = RecipesLayout(
-          recipes: viewModel.fetchedMap[category.categoryId]!, setGrid: true);
+          recipes: viewModel.fetchedMap[category.categoryId]!,
+          setFullView: true);
     }
     return CustomScaffold(title: category.name, body: content);
   }

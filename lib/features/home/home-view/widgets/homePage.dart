@@ -48,12 +48,8 @@ class HomePage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Categories',
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                          fontWeight: FontWeight.normal,
-                        ),
-                  ),
+                  Text('Categories',
+                      style: Theme.of(context).textTheme.headlineSmall),
                   TextButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/home/categories');
@@ -61,7 +57,7 @@ class HomePage extends StatelessWidget {
                     child: Text('See All',
                         style: Theme.of(context)
                             .textTheme
-                            .bodyMedium
+                            .bodyLarge
                             ?.copyWith(color: ThemeColors.secondaryTextColor)),
                   )
                 ],
