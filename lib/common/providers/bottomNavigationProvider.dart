@@ -24,6 +24,7 @@ class BottomNavigationProvider with ChangeNotifier {
       case 2:
         break;
       case 3:
+        Navigator.pushNamed(context, '/login');
         break;
     }
   }
