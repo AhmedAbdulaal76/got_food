@@ -12,12 +12,14 @@ class BottomNavigationProvider with ChangeNotifier {
   }
 
   void navigateTo(BuildContext context, int index) {
-    if (index == _selectedIndex) return;
+    // if (index == _selectedIndex) return;
     _selectedIndex = index;
     notifyListeners();
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, '/home');
+        ModalRoute.of(context)?.settings.name == '/home'
+            ? null
+            : Navigator.pushNamed(context, '/home');
         break;
       case 1:
         break;

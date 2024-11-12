@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 
 class RecipeImage extends StatelessWidget {
-  final String imageUrl;
+  final Recipe recipe;
+  final bool setFullView;
 
   const RecipeImage({
     super.key,
-    required this.imageUrl,
+    required this.recipe,
+    this.setFullView = false,
   });
 
   @override
@@ -17,23 +20,32 @@ class RecipeImage extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         CachedNetworkImage(
-          width: 168,
-          height: 128,
-          imageUrl: imageUrl,
+          width: setFullView ? 400 : 168,
+          height: setFullView ? 148 : 128,
+          imageUrl: recipe.imageUrl,
           imageBuilder: (context, imageProvider) => Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
               boxShadow: <BoxShadow>[
                 BoxShadow(
-                  color: ThemeColors.primaryColorDark.withOpacity(0.3),
+                  color: Colors.black.withOpacity(0.3),
                   blurRadius: 10,
                   offset: const Offset(4, 6),
                 ),
               ],
               image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                  colorFilter: setFullView
+                      ? ColorFilter.mode(
+                          // Colors.black.withOpacity(0.3),
+                          Theme.of(context)
+                              .colorScheme
+                              .onPrimary
+                              .withOpacity(0.3),
+                          BlendMode.darken,
+                        )
+                      : null),
             ),
           ),
           placeholder: (context, url) => const Icon(
@@ -43,6 +55,21 @@ class RecipeImage extends StatelessWidget {
           ),
           errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
+        // name of the recipe
+        setFullView
+            ? Positioned(
+                bottom: 8,
+                left: 8,
+                child: Text(
+                  recipe.name,
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              )
+            : const SizedBox.shrink(),
+        // favourite icon
         Positioned(
           top: 8,
           right: 8,

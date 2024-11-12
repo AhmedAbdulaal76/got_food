@@ -1,10 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CircularPageView extends StatefulWidget {
   @override
   final List<String> imageUrls;
   final double size;
-  const CircularPageView({Key? key, required this.imageUrls, this.size = 400}) : super(key: key);
+  const CircularPageView({super.key, required this.imageUrls, this.size = 400});
+
+  @override
   _CircularPageViewState createState() => _CircularPageViewState();
 }
 
@@ -16,14 +19,18 @@ class _CircularPageViewState extends State<CircularPageView> {
   @override
   void initState() {
     super.initState();
-    _loopedImageUrls = [widget.imageUrls.last, ...widget.imageUrls, widget.imageUrls.first];
+    _loopedImageUrls = [
+      widget.imageUrls.last,
+      ...widget.imageUrls,
+      widget.imageUrls.first
+    ];
     _pageController = PageController(initialPage: 1);
     _size = widget.size;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: _size,
       child: PageView.builder(
         controller: _pageController,
@@ -36,10 +43,26 @@ class _CircularPageViewState extends State<CircularPageView> {
         },
         itemCount: _loopedImageUrls.length,
         itemBuilder: (context, index) {
-          return Image.network(
-            _loopedImageUrls[index],
-            fit: BoxFit.cover,
-          );
+          return CachedNetworkImage(
+              imageUrl: _loopedImageUrls[index],
+              imageBuilder: (context, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+              placeholder: (context, url) => Icon(
+                    Icons.fastfood_rounded,
+                    size: 264,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+              errorWidget: (context, url, error) => Icon(
+                    Icons.fastfood_rounded,
+                    size: 264,
+                    color: Theme.of(context).colorScheme.surface,
+                  ));
         },
       ),
     );

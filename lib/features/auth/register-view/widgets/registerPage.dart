@@ -9,21 +9,24 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
-
       title: 'Sign Up to Got Food?',
-      body: Container(color: ThemeColors.primaryColorBright,
+      body: Container(
+        color: ThemeColors.primaryColorBright,
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               'Create an Account',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: ThemeColors.primaryColorDark),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: ThemeColors.primaryColorDark),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
-            TextField(
+            const SizedBox(height: 20),
+            const TextField(
               decoration: InputDecoration(
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 labelText: 'Username',
@@ -31,8 +34,8 @@ class SignUpPage extends StatelessWidget {
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 15),
-            TextField(
+            const SizedBox(height: 15),
+            const TextField(
               decoration: InputDecoration(
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 labelText: 'Email',
@@ -41,8 +44,8 @@ class SignUpPage extends StatelessWidget {
               ),
               keyboardType: TextInputType.emailAddress,
             ),
-            SizedBox(height: 15),
-            TextField(
+            const SizedBox(height: 15),
+            const TextField(
               decoration: InputDecoration(
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 labelText: 'Password',
@@ -51,8 +54,8 @@ class SignUpPage extends StatelessWidget {
               ),
               obscureText: true,
             ),
-            SizedBox(height: 15),
-            TextField(
+            const SizedBox(height: 15),
+            const TextField(
               decoration: InputDecoration(
                 labelStyle: TextStyle(fontWeight: FontWeight.bold),
                 labelText: 'Confirm Password',
@@ -61,23 +64,24 @@ class SignUpPage extends StatelessWidget {
               ),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: ThemeColors.primaryColorDark),
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: ThemeColors.primaryColorDark),
               onPressed: () {},
-              child: Text('Register'),
+              child: const Text('Register'),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
                   text: "Already have an account? ",
-                  style: TextStyle(color: Colors.black, fontSize: 18),
+                  style: const TextStyle(color: Colors.black, fontSize: 18),
                   children: [
                     TextSpan(
                       text: 'Log in.',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
                         color: ThemeColors.primaryColorDark,

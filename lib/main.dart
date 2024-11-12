@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: GotFoodTheme.theme,
+      darkTheme: GotFoodTheme.darkTheme,
       themeMode: ThemeMode.system, // default
       initialRoute: '/home',
       routes: routes,
