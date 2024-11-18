@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class BottomNavigationProvider with ChangeNotifier {
   // this provider for manage navigation between bottom bar
-
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
+
 
   void setIndex(int index) {
     _selectedIndex = index;
@@ -19,7 +19,7 @@ class BottomNavigationProvider with ChangeNotifier {
       case 0:
         ModalRoute.of(context)?.settings.name == '/home'
             ? null
-            : Navigator.pushNamed(context, '/home');
+            : Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
         break;

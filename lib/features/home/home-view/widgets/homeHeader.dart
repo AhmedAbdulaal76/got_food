@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
+  const HomeHeader({super.key, this.username});
+  final String? username;
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +12,7 @@ class HomeHeader extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Hello, Username",
+            Text("Hello, ${username ?? ''}",
                 style: Theme.of(context)
                     .textTheme
                     .headlineMedium
