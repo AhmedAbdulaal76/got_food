@@ -22,15 +22,14 @@ class SignUpPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final BottomNavigationProvider bottomNavigationProvider =
-    Provider.of<BottomNavigationProvider>(context);
+        Provider.of<BottomNavigationProvider>(context);
     final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
 
     return CustomScaffold(
       title: 'Sign Up to Got Food?',
-      body: Container(
-        color: ThemeColors.primaryColorBright,
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,7 +79,7 @@ class SignUpPage extends StatelessWidget {
                         if (value == null || value.isEmpty) {
                           return 'Enter your email';
                         } else if (!RegExp(
-                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                                r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
                             .hasMatch(value)) {
                           return 'Enter a valid email';
                         }

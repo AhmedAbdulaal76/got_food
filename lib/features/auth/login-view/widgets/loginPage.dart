@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:got_food/common/models/category.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:got_food/common/widgets/other/slideshow.dart';
+import 'package:got_food/features/auth/auth_service.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:provider/provider.dart';
-import 'package:got_food/features/auth/auth_service.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../../common/providers/bottomNavigationProvider.dart';
+
 import '../login_viewModel.dart';
 
 class LoginPage extends StatefulWidget {
@@ -29,8 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomeViewModel>(context);
     final loginViewModel = Provider.of<LoginViewModel>(context);
-    final bottomNavigationProvider = Provider.of<BottomNavigationProvider>(context);
-
+    loginViewModel.context = context;
     List<Category> categories = viewModel.categories;
 
     return CustomScaffold(
@@ -38,10 +35,11 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             // Slideshow with categories
-            CircularPageView(
-              imageUrls: categories.map((category) => category.imageUrl).toList(),
-              size: 350,
-            ),
+            // CircularPageView(
+            //   imageUrls:
+            //       categories.map((category) => category.imageUrl).toList(),
+            //   size: 350,
+            // ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -66,13 +64,15 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         // Email Input
                         TextFormField(
+                          onTapOutside: (e) {
+                            FocusScope.of(context).unfocus();
+                          },
                           controller: _emailController,
                           textInputAction: TextInputAction.next,
-                          decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
+                          decoration: const InputDecoration(
                             labelText: 'Email',
                             hintText: 'Email',
-                            icon: const Icon(Icons.email),
+                            icon: Icon(Icons.email),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -84,13 +84,16 @@ class _LoginPageState extends State<LoginPage> {
                         const SizedBox(height: 15),
                         // Password Input
                         TextFormField(
+                          onTapOutside: (e) {
+                            FocusScope.of(context).unfocus();
+                          },
                           controller: _passwordController,
                           obscureText: true,
                           textInputAction: TextInputAction.done,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelText: 'Password',
                             hintText: 'Password',
-                            icon: const Icon(Icons.lock),
+                            icon: Icon(Icons.lock),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -104,46 +107,44 @@ class _LoginPageState extends State<LoginPage> {
                         if (_errorMessage != null)
                           Text(
                             _errorMessage!,
-                            style: const TextStyle(color: ThemeColors.warningColor),
+                            style: const TextStyle(
+                                color: ThemeColors.warningColor),
                           ),
+                        const SizedBox(height: 16),
                         // Login Button
                         ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: ThemeColors.primaryColorDark,
-                          ),
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate()) {
-                              try {
-                                // Attempt Login
-                                final res = await authService.signInWithPassword(
-                                  email: _emailController.text,
-                                  password: _passwordController.text,
-                                );
-                                // Success
-                                loginViewModel.toggleLoginFlag();
-                                bottomNavigationProvider.navigateTo(context, 0);
-                                print('Sign-In successful! User: ${res.user}');
-                              } on AuthException catch (_) {
-                                // Login Failed
-                                setState(() {
-                                  _errorMessage = 'Incorrect credentials';
-                                });
-                              }
-                            }
-                          },
+                          onPressed: loginViewModel.isLoading
+                              ? null
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    // Attempt Login
+                                    // final res =
+                                    //     await authService.signInWithPassword(
+                                    //   email: _emailController.text,
+                                    //   password: _passwordController.text,
+                                    // );
+                                    loginViewModel.signInWithPaswsword(
+                                      _emailController.text,
+                                      _passwordController.text,
+                                    );
+                                    // Success
+                                    // loginViewModel.toggleLoginFlag();
+                                  }
+                                },
                           child: const Text(
                             'Login',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 12),
                         // Sign-Up Link
                         Center(
                           child: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text: "Don't have an account yet? ",
-                              style: const TextStyle(color: Colors.black, fontSize: 18),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 18),
                               children: [
                                 TextSpan(
                                   text: 'Sign up!',
@@ -155,7 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      Navigator.pushReplacementNamed(context, '/signup');
+                                      Navigator.pushReplacementNamed(
+                                          context, '/signup');
                                     },
                                 ),
                               ],

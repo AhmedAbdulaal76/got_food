@@ -10,8 +10,7 @@ class CustomBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavigationProvider bottomNavigationProvider =
         Provider.of<BottomNavigationProvider>(context);
-    final LoginViewModel loginViewModel =
-    Provider.of<LoginViewModel>(context);
+    final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
     bool loginFlag = loginViewModel.loginFlag;
     return BottomNavigationBar(
       currentIndex: bottomNavigationProvider.selectedIndex,
@@ -19,7 +18,7 @@ class CustomBottomNav extends StatelessWidget {
         bottomNavigationProvider.navigateTo(context, index);
       },
       type: BottomNavigationBarType.fixed,
-      items: <BottomNavigationBarItem>[
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Home',
@@ -33,8 +32,8 @@ class CustomBottomNav extends StatelessWidget {
           label: 'Favorite',
         ),
         BottomNavigationBarItem(
-          icon: loginFlag ? Icon(Icons.person) : Icon(Icons.login),
-          label: loginFlag ? 'Profile' : 'Login',
+          icon: Icon(Icons.person),
+          label: 'Profile',
         ),
       ],
     );

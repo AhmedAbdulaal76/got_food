@@ -5,7 +5,6 @@ class BottomNavigationProvider with ChangeNotifier {
   int _selectedIndex = 0;
   int get selectedIndex => _selectedIndex;
 
-
   void setIndex(int index) {
     _selectedIndex = index;
     notifyListeners();
@@ -26,7 +25,7 @@ class BottomNavigationProvider with ChangeNotifier {
       case 2:
         break;
       case 3:
-        Navigator.pushNamed(context, '/login');
+        Navigator.pushNamed(context, '/profile');
         break;
     }
   }

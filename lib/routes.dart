@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/features/account/profile-view/widgets/profilePage.dart';
 import 'package:got_food/features/home/categories-view/widgets/categoriesPage.dart';
 import 'package:got_food/features/home/categorys-recipes-view/widgets/categoryDetailsPage.dart';
 
@@ -13,4 +14,5 @@ Map<String, Widget Function(BuildContext)> get routes => {
       '/login': (context) => const LoginPage(),
       '/signup': (context) => SignUpPage(),
       '/home/categories/details': (context) => const CategoryDetailsPage(),
+      '/profile': (context) => const ProfilePage(),
     };

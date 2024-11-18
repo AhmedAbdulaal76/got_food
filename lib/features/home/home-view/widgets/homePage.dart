@@ -5,6 +5,7 @@ import 'package:got_food/common/widgets/layout/recipesLayout.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:got_food/features/home/home-view/widgets/homeHeader.dart';
 import 'package:provider/provider.dart';
+
 import 'categoryTabs/categoryTabs.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,7 +34,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-               HomeHeader(),
+              HomeHeader(),
               const SizedBox(height: 8),
               // show featured recipes
               viewModel.recipes.isEmpty
