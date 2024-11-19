@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomeViewModel>(context);
-
     if (viewModel.recipes.isEmpty) {
       viewModel.fetchRecipes();
     } else {
@@ -35,7 +34,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const HomeHeader(),
+              HomeHeader(),
               const SizedBox(height: 8),
               // show featured recipes
               viewModel.recipes.isEmpty

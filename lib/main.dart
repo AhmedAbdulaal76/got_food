@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/core/appProviders.dart';
 import 'package:got_food/core/locator.dart';
-import 'package:got_food/features/home/home-view/widgets/homePage.dart';
 import 'package:got_food/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -35,9 +34,9 @@ class MyApp extends StatelessWidget {
       theme: GotFoodTheme.theme,
       darkTheme: GotFoodTheme.darkTheme,
       themeMode: ThemeMode.system, // default
-      initialRoute: '/home',
+      initialRoute: supabase.auth.currentUser != null ? '/home' : '/login',
       routes: routes,
-      home: const HomePage(),
+      // home: const HomePage(),
     );
   }
 }
