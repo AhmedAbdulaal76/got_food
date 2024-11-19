@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
+import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/features/auth/auth_service.dart';
 import 'package:got_food/features/auth/login-view/login_viewModel.dart';
+import 'package:got_food/features/auth/register-view/register_viewModel.dart';
 import 'package:provider/provider.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../common/providers/bottomNavigationProvider.dart';
 
@@ -24,6 +25,8 @@ class SignUpPage extends StatelessWidget {
     final BottomNavigationProvider bottomNavigationProvider =
         Provider.of<BottomNavigationProvider>(context);
     final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    final RegisterViewModel registerViewModel =
+        Provider.of<RegisterViewModel>(context);
 
     return CustomScaffold(
       title: 'Sign Up to Got Food?',
@@ -129,32 +132,17 @@ class SignUpPage extends StatelessWidget {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: ThemeColors.primaryColorDark,
-                      ),
-                      onPressed: () async {
+                    CustomButton(
+                      onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          try {
-                            AuthResponse res = await authService.signUp(
+                          registerViewModel.signUp(
                               email: _emailController.text,
-                              username: _usernameController.text,
-                              password: _passwordController.text,
-                            );
-                            if (res.user != null) {
-                              loginViewModel.toggleLoginFlag();
-                              bottomNavigationProvider.navigateTo(context, 0);
-                              print('Sign-up successful! User: ${res.user}');
-                            }
-                          } catch (e) {
-                            print('Error: $e');
-                          }
+                              password: _passwordConfirmController.text,
+                              username: _usernameController.text);
                         }
                       },
-                      child: const Text(
-                        'Register',
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      isLoading: registerViewModel.isLoading,
+                      label: 'Register',
                     ),
                     const SizedBox(height: 10),
                     Center(

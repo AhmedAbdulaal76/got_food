@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/category.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
+import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/features/auth/auth_service.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
@@ -112,29 +113,18 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         const SizedBox(height: 16),
                         // Login Button
-                        ElevatedButton(
-                          onPressed: loginViewModel.isLoading
-                              ? null
-                              : () {
-                                  if (_formKey.currentState!.validate()) {
-                                    // Attempt Login
-                                    // final res =
-                                    //     await authService.signInWithPassword(
-                                    //   email: _emailController.text,
-                                    //   password: _passwordController.text,
-                                    // );
-                                    loginViewModel.signInWithPaswsword(
-                                      _emailController.text,
-                                      _passwordController.text,
-                                    );
-                                    // Success
-                                    // loginViewModel.toggleLoginFlag();
-                                  }
-                                },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white),
-                          ),
+                        CustomButton(
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              // Attempt Login
+                              loginViewModel.signInWithPaswsword(
+                                _emailController.text,
+                                _passwordController.text,
+                              );
+                            }
+                          },
+                          isLoading: loginViewModel.isLoading,
+                          label: 'Login',
                         ),
                         const SizedBox(height: 12),
                         // Sign-Up Link
