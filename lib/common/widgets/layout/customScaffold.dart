@@ -20,11 +20,14 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
+      appBar: showAppBar
+          ? AppBar(
+              title: Text(title),
+              automaticallyImplyLeading: showBackButton,
+            )
+          : null,
       body: body,
-      bottomNavigationBar: const CustomBottomNav(),
+      bottomNavigationBar: showBottomNav ? const CustomBottomNav() : null,
     );
   }
 }

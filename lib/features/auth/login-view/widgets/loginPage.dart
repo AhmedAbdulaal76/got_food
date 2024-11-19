@@ -1,11 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:got_food/common/models/category.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/features/auth/auth_service.dart';
-import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:provider/provider.dart';
 
 import '../login_viewModel.dart';
@@ -26,15 +24,16 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = Provider.of<HomeViewModel>(context);
     final loginViewModel = Provider.of<LoginViewModel>(context);
     loginViewModel.context = context;
-    List<Category> categories = viewModel.categories;
 
     return CustomScaffold(
+      title: 'Login to Your Account',
+      showBottomNav: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
+            // TODO: pass category pictures as assets or ready-made links
             // Slideshow with categories
             // CircularPageView(
             //   imageUrls:
@@ -163,7 +162,6 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       ),
-      title: 'Login to Your Account',
     );
   }
 }
