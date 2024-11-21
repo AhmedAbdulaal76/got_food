@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
 
+import 'recipeHeader.dart';
+import 'tabs/ingredientsTab.dart';
+import 'tabs/instructionsTab.dart';
+
 class BottomContainer extends StatelessWidget {
   const BottomContainer({super.key, required this.recipe});
 
@@ -29,14 +33,28 @@ class BottomContainer extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 64, horizontal: 42),
-          child: Column(
-            children: [
-              Text(recipe.name),
-              const SizedBox(
-                height: 64,
-              ),
-            ],
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+          child: DefaultTabController(
+            length: 2,
+            initialIndex: 0,
+            child: Column(
+              children: [
+                RecipeHeader(
+                  recipe: recipe,
+                ),
+                // tabview for ingredients and instructions
+                const TabBar(tabs: [
+                  Tab(text: "Ingredients"),
+                  Tab(text: "Instructions"),
+                ]),
+                const TabBarView(
+                  children: <Widget>[
+                    IngredientsTab(),
+                    InstructionsTab(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
