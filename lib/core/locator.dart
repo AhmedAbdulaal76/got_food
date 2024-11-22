@@ -4,6 +4,8 @@ import 'package:got_food/features/auth/auth_service.dart';
 import 'package:got_food/features/auth/login-view/login_viewModel.dart';
 import 'package:got_food/features/auth/register-view/register_viewModel.dart';
 import 'package:got_food/features/home/home_service.dart';
+import 'package:got_food/features/recipes/recipe-details-view/recipeDetailsViewModel.dart';
+import 'package:got_food/features/recipes/recipes_service.dart';
 
 import '../common/providers/CategoryViewModel.dart';
 import '../features/home/home-view/homeViewModel.dart';
@@ -20,4 +22,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => LoginViewModel(locator<AuthService>()));
   locator
       .registerLazySingleton(() => RegisterViewModel(locator<AuthService>()));
+  locator.registerLazySingleton(() => RecipesService());
+  locator.registerLazySingleton(
+      () => RecipeDetailsViewModel(locator<RecipesService>()));
 }

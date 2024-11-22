@@ -3,6 +3,7 @@ import 'package:got_food/core/locator.dart';
 import 'package:got_food/features/auth/login-view/login_viewModel.dart';
 import 'package:got_food/features/auth/register-view/register_viewModel.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
+import 'package:got_food/features/recipes/recipe-details-view/recipeDetailsViewModel.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -14,4 +15,5 @@ List<SingleChildWidget> get appProviders => [
       ChangeNotifierProvider(create: (_) => locator<CategoryViewModel>()),
       ChangeNotifierProvider(create: (_) => locator<LoginViewModel>()),
       ChangeNotifierProvider(create: (_) => locator<RegisterViewModel>()),
+      ChangeNotifierProvider(create: (_) => locator<RecipeDetailsViewModel>()),
     ];
