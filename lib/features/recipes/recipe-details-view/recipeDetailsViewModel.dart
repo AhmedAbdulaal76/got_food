@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/ingredient.dart';
+import 'package:got_food/common/models/user.dart';
 import 'package:got_food/features/recipes/recipes_service.dart';
 
 class RecipeDetailsViewModel extends ChangeNotifier {
@@ -41,6 +42,32 @@ class RecipeDetailsViewModel extends ChangeNotifier {
           '[Recipe Details View Model] Error fetching recipe ingredients: $e');
     } finally {
       isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  // fetch recipe creator info
+  User? creator;
+  bool isCreatorLoading = true;
+  Map<String, User> fetchedCreators = {};
+  Future<void> fetchRecipeCreator(String userId) async {
+    if (fetchedCreators.containsKey(userId)) {
+      creator = fetchedCreators[userId];
+    } else {
+      _fetchRecipeCreator(userId);
+    }
+  }
+
+  Future<void> _fetchRecipeCreator(String userId) async {
+    try {
+      var res = await _recipesService.fetchRecipeCreator(userId);
+      creator = User.fromJson(res[0]);
+      fetchedCreators.addAll({userId: creator!});
+      print('[Recipe Details View Model] Recipe creator fetched: $res');
+    } catch (e) {
+      print('[Recipe Details View Model] Error fetching recipe creator: $e');
+    } finally {
+      isCreatorLoading = false;
       notifyListeners();
     }
   }

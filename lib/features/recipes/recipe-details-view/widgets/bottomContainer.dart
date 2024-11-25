@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
+import 'package:got_food/features/recipes/recipe-details-view/widgets/recipeFooter.dart';
 import 'package:got_food/features/recipes/recipe-details-view/widgets/tabs/recipeTabs.dart';
 
 import 'recipeHeader.dart';
@@ -39,6 +40,9 @@ class BottomContainer extends StatelessWidget {
                 recipe: recipe,
               ),
               RecipeTabs(recipe: recipe),
+              RecipeFooter(
+                recipe: recipe,
+              ),
             ],
           ),
         ),

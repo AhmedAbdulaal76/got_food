@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
+import 'package:got_food/features/recipes/recipe-details-view/widgets/tabs/ingredientsSection.dart';
 import 'package:provider/provider.dart';
 
 import '../../recipeDetailsViewModel.dart';
@@ -34,22 +35,34 @@ class _RecipeTabsState extends State<RecipeTabs> {
     viewModel.fetchRecipeIngredients(widget.recipe.recipeId);
 
     Widget content;
-    Widget sectionContent = const Center(child: Text('temp'));
+    Widget sectionContent = viewModel.isLoading
+        ? const CircularProgressIndicator()
+        : selectedIndex == 0
+            ? IngredientsSection(
+                ingredients: viewModel.fetchedMap[widget.recipe.recipeId]!)
+            : Text(
+                widget.recipe.instructions,
+                style: Theme.of(context).textTheme.bodyLarge,
+              );
+
     if (viewModel.isLoading) {
       content = const CircularProgressIndicator();
     } else {
       content = Column(
-        // crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // category tabs
+          // Category tabs
           TabItems(
             onTabSelected: onTabSelected,
             list: const ['Ingredients', 'Instructions'],
             viewModel: viewModel,
             selectedIndex: selectedIndex,
           ),
+          const SizedBox(height: 16),
+          // Section content
           SizedBox(
-              height: 270,
+              height: 260,
               child: viewModel.isLoading
                   ? const CircularProgressIndicator()
                   : sectionContent),

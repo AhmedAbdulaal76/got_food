@@ -30,6 +30,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // UserViewModel userViewModel =
+    //     Provider.of<UserViewModel>(context, listen: false);
+    // userViewModel.fetchUserDetails();
     return MaterialApp(
       theme: GotFoodTheme.theme,
       darkTheme: GotFoodTheme.darkTheme,

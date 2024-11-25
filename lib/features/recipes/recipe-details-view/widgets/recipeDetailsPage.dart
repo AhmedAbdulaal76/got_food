@@ -14,8 +14,6 @@ class RecipeDetailsPage extends StatelessWidget {
     return CustomScaffold(
       title: recipe.name,
       body: Stack(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // show recipe image
           RecipeDetailsImage(imageUrl: recipe.imageUrl),
