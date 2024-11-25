@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 
-class TabItem extends StatelessWidget {
-  const TabItem(
+class TabItems extends StatelessWidget {
+  const TabItems(
       {super.key,
       required this.onTabSelected,
       this.selectedIndex = 0,

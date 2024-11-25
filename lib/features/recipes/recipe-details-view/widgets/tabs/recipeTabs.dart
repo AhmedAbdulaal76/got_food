@@ -3,7 +3,7 @@ import 'package:got_food/common/models/recipe.dart';
 import 'package:provider/provider.dart';
 
 import '../../recipeDetailsViewModel.dart';
-import 'tabItem.dart';
+import 'tabItems.dart';
 
 class RecipeTabs extends StatefulWidget {
   const RecipeTabs({super.key, required this.recipe});
@@ -42,7 +42,7 @@ class _RecipeTabsState extends State<RecipeTabs> {
         // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // category tabs
-          TabItem(
+          TabItems(
             onTabSelected: onTabSelected,
             list: const ['Ingredients', 'Instructions'],
             viewModel: viewModel,
