@@ -26,12 +26,15 @@ class RecipeDetailsViewModel extends ChangeNotifier {
   // fetch recipe ingredients
   Future<void> _fetchRecipeIngredients(String recipeId) async {
     isLoading = true;
-
     try {
-      // Add your logic here
-      final res = await _recipesService.fetchRecipeIngredients(recipeId);
-      ingredients =
-          res.map((e) => Ingredient.fromJson(e['Ingredient']!)).toList();
+      final List<Map<String, dynamic>> res =
+          await _recipesService.fetchRecipeIngredients(recipeId);
+      ingredients = res
+          .map((e) => Ingredient.fromJson(e['ingredients']!,
+              unit: e['unit'], quantity: (e['quantity'] as num).toDouble()))
+          .toList();
+      print(
+          '[Recipe Details View Model] Ingredients: ${ingredients.map((e) => e.name)}');
       fetchedMap.addAll({recipeId: ingredients});
     } catch (e) {
       print(

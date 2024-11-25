@@ -1,17 +1,13 @@
 class Ingredient {
   String name;
-  double quantity;
-  String unit;
+  double? quantity;
+  String? unit;
   String imageUrl = '';
 
-  Ingredient(
-      {required this.name,
-      required this.quantity,
-      required this.unit,
-      required imageUrl});
+  Ingredient({required this.name, this.quantity, this.unit, required imageUrl});
 
   factory Ingredient.fromJson(Map<String, dynamic> json,
-      {required double quantity, required String unit}) {
+      {double? quantity, String? unit}) {
     return Ingredient(
       name: json['name'],
       imageUrl: json['imageurl'],
@@ -22,7 +18,8 @@ class Ingredient {
 
   Map<String, dynamic> toJson() => {
         'name': name,
-        'quantity': quantity,
-        'unit': unit,
+        'imageurl': imageUrl,
+        // 'quantity': quantity,
+        // 'unit': unit,
       };
 }

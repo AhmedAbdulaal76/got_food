@@ -39,6 +39,7 @@ class _RecipeTabsState extends State<RecipeTabs> {
       content = const CircularProgressIndicator();
     } else {
       content = Column(
+        // crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // category tabs
           TabItem(
