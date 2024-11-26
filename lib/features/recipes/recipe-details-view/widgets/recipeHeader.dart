@@ -18,7 +18,7 @@ class RecipeHeader extends StatelessWidget {
           children: [
             // recipe name
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.68,
+              width: MediaQuery.of(context).size.width * 0.66,
               child: Text(
                 recipe.name,
                 style: TextStyle(

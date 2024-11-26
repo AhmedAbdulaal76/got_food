@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:got_food/common/style/themes/themeColors.dart';
 
 class TabItems extends StatelessWidget {
   const TabItems(
@@ -34,17 +33,29 @@ class TabItems extends StatelessWidget {
               width: 124,
               margin: const EdgeInsetsDirectional.only(end: 8),
               decoration: BoxDecoration(
-                color: selectedIndex == index
-                    ? ThemeColors.primaryColorDark
-                    : ThemeColors.primaryColorLight,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? selectedIndex == index
+                        ? Theme.of(context).colorScheme.surface
+                        : Theme.of(context).colorScheme.primary
+                    : selectedIndex == index // for light theme
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.circular(50),
               ),
               child: Center(
                 child: Text(
                   list[index],
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color:
-                          selectedIndex == index ? Colors.white : Colors.black),
+                        fontWeight:
+                            selectedIndex == index ? FontWeight.bold : null,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? selectedIndex == index
+                                ? Theme.of(context).colorScheme.onSurface
+                                : Theme.of(context).colorScheme.onPrimary
+                            : selectedIndex == index // for light theme
+                                ? Colors.white
+                                : Theme.of(context).colorScheme.onSurface,
+                      ),
                 ),
               ),
             ),

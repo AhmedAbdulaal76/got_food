@@ -13,7 +13,7 @@ class IngredientCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
@@ -47,20 +47,20 @@ class IngredientCard extends StatelessWidget {
           // Title (Ingredient Name)
           Text(
             ingredient.name,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
           const Spacer(),
           // Trailing (Quantity and Unit)
           Text(
             "${ingredient.quantity} ${ingredient.unit ?? 'N/A'}",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w500,
-              color: Colors.black54,
+              color: Theme.of(context).colorScheme.onPrimary,
             ),
           ),
         ],
