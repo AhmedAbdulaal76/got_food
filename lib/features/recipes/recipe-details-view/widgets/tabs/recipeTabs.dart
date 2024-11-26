@@ -40,9 +40,11 @@ class _RecipeTabsState extends State<RecipeTabs> {
         : selectedIndex == 0
             ? IngredientsSection(
                 ingredients: viewModel.fetchedMap[widget.recipe.recipeId]!)
-            : Text(
-                widget.recipe.instructions,
-                style: Theme.of(context).textTheme.bodyLarge,
+            : SingleChildScrollView(
+                child: Text(
+                  widget.recipe.instructions,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               );
 
     if (viewModel.isLoading) {
@@ -62,7 +64,7 @@ class _RecipeTabsState extends State<RecipeTabs> {
           const SizedBox(height: 16),
           // Section content
           SizedBox(
-              height: 260,
+              height: selectedIndex == 0 ? 260 : 140,
               child: viewModel.isLoading
                   ? const CircularProgressIndicator()
                   : sectionContent),
