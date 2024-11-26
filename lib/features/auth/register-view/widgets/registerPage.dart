@@ -4,11 +4,8 @@ import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/features/auth/auth_service.dart';
-import 'package:got_food/features/auth/login-view/login_viewModel.dart';
 import 'package:got_food/features/auth/register-view/register_viewModel.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../common/providers/bottomNavigationProvider.dart';
 
 class SignUpPage extends StatelessWidget {
   SignUpPage({super.key});
@@ -22,11 +19,13 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BottomNavigationProvider bottomNavigationProvider =
-        Provider.of<BottomNavigationProvider>(context);
-    final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    // final BottomNavigationProvider bottomNavigationProvider =
+    //     Provider.of<BottomNavigationProvider>(context);
+    // final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
     final RegisterViewModel registerViewModel =
         Provider.of<RegisterViewModel>(context);
+
+    registerViewModel.context = context;
 
     return CustomScaffold(
       title: 'Sign Up to Got Food?',
