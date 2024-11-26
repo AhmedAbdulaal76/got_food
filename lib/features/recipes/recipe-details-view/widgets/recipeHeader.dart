@@ -17,12 +17,17 @@ class RecipeHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // recipe name
-            Text(
-              recipe.name,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.68,
+              child: Text(
+                recipe.name,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                maxLines: 3,
               ),
             ),
             // recipe time
