@@ -43,26 +43,11 @@ class _CircularPageViewState extends State<CircularPageView> {
         },
         itemCount: _loopedImageUrls.length,
         itemBuilder: (context, index) {
-          return CachedNetworkImage(
-              imageUrl: _loopedImageUrls[index],
-              imageBuilder: (context, imageProvider) => Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: imageProvider,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-              placeholder: (context, url) => Icon(
-                    Icons.fastfood_rounded,
-                    size: 264,
-                    color: Theme.of(context).colorScheme.surface,
-                  ),
-              errorWidget: (context, url, error) => Icon(
-                    Icons.fastfood_rounded,
-                    size: 264,
-                    color: Theme.of(context).colorScheme.surface,
-                  ));
+          return Image.asset(
+              _loopedImageUrls[index],
+              fit: BoxFit.cover,
+            width: _size,
+);
         },
       ),
     );

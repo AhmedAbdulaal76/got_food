@@ -5,7 +5,7 @@ import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/features/auth/auth_service.dart';
 import 'package:provider/provider.dart';
-
+import 'package:got_food/common/widgets/other/slideshow.dart';
 import '../login_viewModel.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,12 +34,14 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           children: [
             // TODO: pass category pictures as assets or ready-made links
-            // Slideshow with categories
-            // CircularPageView(
-            //   imageUrls:
-            //       categories.map((category) => category.imageUrl).toList(),
-            //   size: 350,
-            // ),
+            CircularPageView(
+               imageUrls: [
+                 'lib/common/assets/slideshow_images/breakfast.jpg',
+               'lib/common/assets/slideshow_images/dessert.jpg',
+               'lib/common/assets/slideshow_images/dinner.jpg',
+               'lib/common/assets/slideshow_images/lunch.jpg'],
+               size: 350,
+             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
