@@ -14,7 +14,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<HomeViewModel>(context);
-
     if (viewModel.recipes.isEmpty) {
       viewModel.fetchRecipes();
     } else {

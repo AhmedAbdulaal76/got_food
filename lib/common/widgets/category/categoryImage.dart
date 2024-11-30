@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:got_food/common/style/themes/themeColors.dart';
 
 class CategoryImage extends StatelessWidget {
   final String imageUrl;
@@ -21,7 +20,8 @@ class CategoryImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           boxShadow: <BoxShadow>[
             BoxShadow(
-              color: ThemeColors.primaryColorDark.withOpacity(0.3),
+              // color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+              color: Colors.black.withOpacity(0.3),
               blurRadius: 10,
               offset: const Offset(4, 6),
             ),
@@ -35,9 +35,12 @@ class CategoryImage extends StatelessWidget {
       placeholder: (context, url) => const Icon(
         Icons.fastfood_rounded,
         size: 64,
-        color: Colors.white,
       ),
-      errorWidget: (context, url, error) => const Icon(Icons.error),
+      errorWidget: (context, url, error) => Icon(
+        Icons.fastfood_rounded,
+        size: 64,
+        color: Theme.of(context).colorScheme.onSurface,
+      ),
     );
   }
 }
