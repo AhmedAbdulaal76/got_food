@@ -23,8 +23,13 @@ class BottomNavigationProvider with ChangeNotifier {
       case 1:
         break;
       case 2:
+        ModalRoute.of(context)?.settings.name == '/recipes/create-recipe'
+            ? null
+            : Navigator.pushReplacementNamed(context, '/recipes/create-recipe');
         break;
       case 3:
+        break;
+      case 4:
         Navigator.pushNamed(context, '/profile');
         break;
     }
