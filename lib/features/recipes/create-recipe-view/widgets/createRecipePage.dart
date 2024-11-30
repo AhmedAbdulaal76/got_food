@@ -8,9 +8,9 @@ class CreateRecipePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
+    return const CustomScaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: RecipeForm(),
       ),
       title: 'Create Recipe',

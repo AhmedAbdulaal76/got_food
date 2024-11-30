@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
 
 class IngredientList extends StatefulWidget {
-  const IngredientList({super.key});
+  IngredientList({
+    super.key,
+    required this.ingredientControllers,
+    required this.quantityControllers,
+    required this.units,
+  });
+
+  List<TextEditingController> ingredientControllers;
+  List<TextEditingController> quantityControllers;
+  Map<int, String> units;
 
   @override
   _IngredientListState createState() => _IngredientListState();
@@ -14,6 +23,8 @@ class _IngredientListState extends State<IngredientList> {
   @override
   void initState() {
     super.initState();
+    widget.ingredientControllers.add(TextEditingController());
+    widget.quantityControllers.add(TextEditingController());
     ingredients.add(buildIngredientRow());
   }
 
@@ -32,14 +43,14 @@ class _IngredientListState extends State<IngredientList> {
           children: [
             Expanded(
               flex: 2,
-              child: DropdownButtonFormField<String>(
-                items: ['Sugar', 'Flour', 'Butter'].map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(item),
-                  );
-                }).toList(),
-                onChanged: (value) {},
+              child: TextFormField(
+                controller: widget.ingredientControllers.last,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter an ingredient';
+                  }
+                  return null;
+                },
                 decoration: const InputDecoration(
                   labelText: 'Ingredient',
                   border: OutlineInputBorder(),
@@ -53,6 +64,10 @@ class _IngredientListState extends State<IngredientList> {
                     onPressed: () {
                       setState(() {
                         ingredients.removeLast();
+                        widget.ingredientControllers.removeLast();
+                        widget.units
+                            .remove(widget.quantityControllers.length - 1);
+                        widget.quantityControllers.removeLast();
                       });
                     },
                   )
@@ -61,6 +76,8 @@ class _IngredientListState extends State<IngredientList> {
               icon: Icon(Icons.add, color: primaryColor),
               onPressed: () {
                 setState(() {
+                  widget.ingredientControllers.add(TextEditingController());
+                  widget.quantityControllers.add(TextEditingController());
                   ingredients.add(buildIngredientRow());
                 });
               },
@@ -73,6 +90,7 @@ class _IngredientListState extends State<IngredientList> {
             Expanded(
               flex: 1,
               child: TextFormField(
+                controller: widget.quantityControllers.last,
                 decoration: const InputDecoration(
                   labelText: 'Quantity',
                   border: OutlineInputBorder(),
@@ -90,7 +108,11 @@ class _IngredientListState extends State<IngredientList> {
                     child: Text(item),
                   );
                 }).toList(),
-                onChanged: (value) {},
+                onChanged: (value) {
+                  // widget.units.add(value!);
+                  widget.units
+                      .addAll({widget.quantityControllers.length - 1: value!});
+                },
                 decoration: const InputDecoration(
                   labelText: 'Unit',
                   border: OutlineInputBorder(),

@@ -9,7 +9,7 @@ class ImagePickerWidget extends StatefulWidget {
   @override
   _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
 
-  File? get image => _ImagePickerWidgetState()._image;
+  // File? get image => _ImagePickerWidgetState()._image;
 }
 
 class _ImagePickerWidgetState extends State<ImagePickerWidget> {

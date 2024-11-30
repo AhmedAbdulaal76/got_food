@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoryList extends StatefulWidget {
-  const CategoryList({super.key});
+  CategoryList({super.key, required this.categoryControllers});
+
+  @override
+  List<TextEditingController> categoryControllers;
 
   @override
   _CategoryListState createState() => _CategoryListState();
@@ -14,6 +17,7 @@ class _CategoryListState extends State<CategoryList> {
   @override
   void initState() {
     super.initState();
+    widget.categoryControllers.add(TextEditingController());
     categories.add(buildCategoryRow());
   }
 
@@ -31,14 +35,14 @@ class _CategoryListState extends State<CategoryList> {
           key: UniqueKey(),
           children: [
             Expanded(
-              child: DropdownButtonFormField<String>(
-                items: ['Dessert', 'Snack', 'Main Course'].map((String item) {
-                  return DropdownMenuItem<String>(
-                    value: item,
-                    child: Text(item),
-                  );
-                }).toList(),
-                onChanged: (value) {},
+              child: TextFormField(
+                controller: widget.categoryControllers.last,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter a category';
+                  }
+                  return null;
+                },
                 decoration: const InputDecoration(
                   labelText: 'Category',
                   border: OutlineInputBorder(),
@@ -51,6 +55,7 @@ class _CategoryListState extends State<CategoryList> {
                     onPressed: () {
                       setState(() {
                         categories.removeLast();
+                        widget.categoryControllers.removeLast();
                       });
                     },
                   )
@@ -59,6 +64,7 @@ class _CategoryListState extends State<CategoryList> {
               icon: Icon(Icons.add, color: primaryColor),
               onPressed: () {
                 setState(() {
+                  widget.categoryControllers.add(TextEditingController());
                   categories.add(buildCategoryRow());
                 });
               },
