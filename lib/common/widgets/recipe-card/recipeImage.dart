@@ -47,9 +47,12 @@ class RecipeImage extends StatelessWidget {
           placeholder: (context, url) => const Icon(
             Icons.fastfood_rounded,
             size: 64,
-            color: Colors.white,
+            // color: Colors.white,
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(
+            Icons.fastfood_rounded,
+            size: 64,
+          ),
         ),
         // name of the recipe
         setFullView
