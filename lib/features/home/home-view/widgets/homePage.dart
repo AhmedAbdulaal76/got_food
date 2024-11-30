@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const HomeHeader(),
+                HomeHeader(),
                 const SizedBox(height: 8),
                 // show featured recipes
                 viewModel.recipes.isEmpty
