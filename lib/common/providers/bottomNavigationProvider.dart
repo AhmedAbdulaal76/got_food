@@ -16,16 +16,18 @@ class BottomNavigationProvider with ChangeNotifier {
     notifyListeners();
     switch (index) {
       case 0:
-        ModalRoute.of(context)?.settings.name == '/home'
-            ? null
-            : Navigator.pushReplacementNamed(context, '/home');
+        // ModalRoute.of(context)?.settings.name == '/home'
+        //     ? null
+        // :
+        Navigator.pushReplacementNamed(context, '/home');
         break;
       case 1:
         break;
       case 2:
-        ModalRoute.of(context)?.settings.name == '/recipes/create-recipe'
-            ? null
-            : Navigator.pushReplacementNamed(context, '/recipes/create-recipe');
+        // ModalRoute.of(context)?.settings.name == '/recipes/create-recipe'
+        //     ? null
+        // :
+        Navigator.pushReplacementNamed(context, '/recipes/create-recipe');
         break;
       case 3:
         break;

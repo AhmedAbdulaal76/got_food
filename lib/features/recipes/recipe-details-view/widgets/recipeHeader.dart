@@ -18,7 +18,7 @@ class RecipeHeader extends StatelessWidget {
           children: [
             // recipe name
             SizedBox(
-              width: MediaQuery.of(context).size.width * 0.66,
+              width: MediaQuery.of(context).size.width * 0.64,
               child: Text(
                 recipe.name,
                 style: TextStyle(
@@ -27,7 +27,7 @@ class RecipeHeader extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   overflow: TextOverflow.ellipsis,
                 ),
-                maxLines: 3,
+                maxLines: 5,
               ),
             ),
             // recipe time

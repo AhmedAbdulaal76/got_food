@@ -45,6 +45,7 @@ class CategoryCard extends StatelessWidget {
             Text(
               category.name,
               style: Theme.of(context).textTheme.bodyLarge,
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),

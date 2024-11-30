@@ -38,11 +38,7 @@ class RecipeImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   colorFilter: setFullView
                       ? ColorFilter.mode(
-                          // Colors.black.withOpacity(0.3),
-                          Theme.of(context)
-                              .colorScheme
-                              .onPrimary
-                              .withOpacity(0.3),
+                          Colors.black.withOpacity(0.3),
                           BlendMode.darken,
                         )
                       : null),
@@ -65,6 +61,12 @@ class RecipeImage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
+                        // background: Paint()
+                        //   ..color = Theme.of(context)
+                        //       .colorScheme
+                        //       .onSurface
+                        //       .withOpacity(0.4)
+                        //   ..style = PaintingStyle.fill,
                       ),
                 ),
               )

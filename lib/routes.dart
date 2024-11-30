@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/features/account/profile-view/widgets/profilePage.dart';
 import 'package:got_food/features/home/categories-view/widgets/categoriesPage.dart';
-import 'package:got_food/features/home/categorys-recipes-view/widgets/categoryDetailsPage.dart';
+import 'package:got_food/features/home/category-details-view/widgets/categoryDetailsPage.dart';
 import 'package:got_food/features/recipes/create-recipe-view/widgets/createRecipePage.dart';
 import 'package:got_food/features/recipes/recipe-details-view/widgets/recipeDetailsPage.dart';
 
