@@ -12,7 +12,6 @@ class HomeHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -28,12 +27,6 @@ class HomeHeader extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineSmall),
             ],
           ),
-        ),
-        const SizedBox(width: 8),
-        const CircleAvatar(
-          radius: 35,
-          backgroundImage: NetworkImage(
-              "https://mighty.tools/mockmind-api/content/human/5.jpg"),
         ),
       ],
     );
