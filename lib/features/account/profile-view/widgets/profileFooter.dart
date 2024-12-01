@@ -1,30 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/theme.dart';
+import 'package:got_food/common/widgets/layout/recipesLayout.dart';
+import 'package:got_food/features/account/profile-view/profileViewModel.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../../../../common/models/recipe.dart';
 import '../../../../main.dart';
 
-class ProfileBody extends StatelessWidget {
-  ProfileBody({super.key});
+class ProfileFooter extends StatelessWidget {
+  ProfileFooter({super.key});
 
-  final User? user = Supabase.instance.client.auth.currentUser;
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          child:
-        Text('My Recipes',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Color.alphaBlend(Colors.black.withOpacity(0.3), GotFoodTheme.kColorScheme.primary),
-          fontSize: 22
-        ),),
-        ),
 
         SizedBox(height: 35),
         ListTile(

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import '../common/providers/CategoryViewModel.dart';
+import '../features/account/profile-view/profileViewModel.dart';
 
 List<SingleChildWidget> get appProviders => [
       ChangeNotifierProvider(create: (_) => BottomNavigationProvider()),
@@ -19,5 +20,6 @@ List<SingleChildWidget> get appProviders => [
       ChangeNotifierProvider(create: (_) => locator<RegisterViewModel>()),
       ChangeNotifierProvider(create: (_) => locator<RecipeDetailsViewModel>()),
       ChangeNotifierProvider(create: (_) => locator<UserViewModel>()),
+      ChangeNotifierProvider(create: (_) => locator<ProfileViewModel>()),
       ChangeNotifierProvider(create: (_) => locator<SearchViewModel>()),
     ];
