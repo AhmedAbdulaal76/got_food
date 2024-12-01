@@ -18,48 +18,54 @@ class ProfilePage extends StatelessWidget {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
     profileViewModel.fetchRecipesByUserId(user!.id);
     return CustomScaffold(
-      title: 'Profile',
-      body: SingleChildScrollView(
-            child: supabase.auth.currentUser != null
-          ? Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                    ProfileHeader(),
-                    const SizedBox(height: 30),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child:
-                    Text('My Recipes',
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Color.alphaBlend(Colors.black.withOpacity(0.3), GotFoodTheme.kColorScheme.primary),
-                          fontSize: 22
-                      ),),
+        title: 'Profile',
+        body: SingleChildScrollView(
+          child: supabase.auth.currentUser != null
+              ? Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ProfileHeader(),
+                      const SizedBox(height: 30),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'My Recipes',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Color.alphaBlend(
+                                  Colors.black.withOpacity(0.3),
+                                  GotFoodTheme.kColorScheme.primary),
+                              fontSize: 22),
+                        ),
+                      ),
+                      profileViewModel.recipes.isEmpty
+                          ? const CircularProgressIndicator()
+                          : SizedBox(
+                              height: 270,
+                              child: RecipesLayout(
+                                  recipes:
+                                      profileViewModel.fetchedMap[user?.id]!),
+                            ),
+                      ProfileFooter(),
+                    ],
                   ),
-                    SizedBox(
-                      height: 270,
-                      child: RecipesLayout(recipes: profileViewModel.fetchedMap[user?.id]!),
+                )
+              : Center(
+                  child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: const Text(
+                      'Login please to see ur profile',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    ProfileFooter(),
-                ],
-              ),
-            )
-          : Center(
-              child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: const Text(
-                  'Login please to see ur profile',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            )),
-      ));
+                  ),
+                )),
+        ));
   }
 }
