@@ -59,6 +59,7 @@ class RecipeDetailsViewModel extends ChangeNotifier {
   }
 
   Future<void> _fetchRecipeCreator(String userId) async {
+    isCreatorLoading = true;
     try {
       var res = await _recipesService.fetchRecipeCreator(userId);
       creator = User.fromJson(res[0]);
@@ -68,6 +69,35 @@ class RecipeDetailsViewModel extends ChangeNotifier {
       print('[Recipe Details View Model] Error fetching recipe creator: $e');
     } finally {
       isCreatorLoading = false;
+      notifyListeners();
+    }
+  }
+
+  bool isDeleteLoading = false;
+  Future<void> deleteRecipe(String recipeId) async {
+    isDeleteLoading = true;
+    try {
+      var res = await _recipesService.deleteRecipe(recipeId);
+      print('[Recipe Details View Model] Recipe deleted');
+      // show snackbar
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        const SnackBar(
+          content: Text('Recipe deleted successfully'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    } catch (e) {
+      print('[Recipe Details View Model] Error deleting recipe: $e');
+      // show snackbar
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          content: const Text('Failed to delete recipe'),
+          duration: const Duration(seconds: 2),
+          backgroundColor: Theme.of(ctx).colorScheme.error,
+        ),
+      );
+    } finally {
+      isDeleteLoading = false;
       notifyListeners();
     }
   }

@@ -23,7 +23,7 @@ class HomeHeader extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: Text(
-                      "Hello, ${user?.userMetadata?['display_name'] ?? 'user'}",
+                      "Hello, ${user?.userMetadata?['display_name'] ?? 'Guest'}",
                       style:
                           Theme.of(context).textTheme.headlineMedium?.copyWith(
                                 fontWeight: FontWeight.bold,

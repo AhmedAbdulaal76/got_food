@@ -30,10 +30,14 @@ class ProfilePage extends StatelessWidget {
               child: Padding(
               padding: const EdgeInsets.all(16),
               child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/login');
-                  },
-                  child: const Text('Login please to see ur profile')),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login');
+                },
+                child: const Text(
+                  'Login please to see ur profile',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             )),
       )));
   }
