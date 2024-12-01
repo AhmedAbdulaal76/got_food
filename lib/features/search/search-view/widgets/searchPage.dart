@@ -40,7 +40,7 @@ class SearchPage extends StatelessWidget {
           // checkout favourite recipes
           const SizedBox(height: 20),
           Text(
-            'Check out our favourite recipes 😊',
+            'Checkout featured recipes 😊',
             style: Theme.of(context).textTheme.headlineSmall,
             textAlign: TextAlign.start,
           ),

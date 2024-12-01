@@ -1,30 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
+import 'package:got_food/features/account/profile-view/widgets/profileBody.dart';
+import 'package:got_food/features/account/profile-view/widgets/profileHeader.dart';
 import 'package:got_food/main.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
-
+  ProfilePage({super.key});
+  final User? user = Supabase.instance.client.auth.currentUser;
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
       title: 'Profile',
-      body: supabase.auth.currentUser != null
+      body: Container(color: Colors.white, child: SingleChildScrollView(
+            child: supabase.auth.currentUser != null
           ? Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const Text('welcome to your Profile Page'),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () async {
-                      await supabase.auth.signOut();
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, '/login', (route) => false);
-                    },
-                    child: const Text('Logout'),
-                  ),
+                    ProfileHeader(),
+                    const SizedBox(height: 30),
+                    ProfileBody(),
                 ],
               ),
             )
@@ -41,6 +39,6 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
             )),
-    );
+      )));
   }
 }
