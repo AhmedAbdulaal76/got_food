@@ -215,7 +215,10 @@ class _RecipeFormState extends State<RecipeForm> {
     } catch (e) {
       // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error saving recipe: $e')),
+        SnackBar(
+          content: Text('Error saving recipe: $e'),
+          backgroundColor: Colors.red,
+        ),
       );
     }
   }
@@ -400,11 +403,15 @@ class _RecipeFormState extends State<RecipeForm> {
                   );
                 }
               },
-              child: const Text(
+              child: Text(
                 'Save Recipe',
                 style: TextStyle(
-                    // color: Theme.of(context).colorScheme.,
-                    ),
+                    color: Theme.of(context).colorScheme.brightness ==
+                            Brightness.light
+                        ? Colors.white
+                        : Colors.black),
+                // : Theme.of(context).colorScheme.onSecondary),
+                // color:  Colors.white),
               ),
             ),
           ),

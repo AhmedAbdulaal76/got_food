@@ -18,9 +18,9 @@ class UserViewModel extends ChangeNotifier {
     // fetch user details
     if (_user != null) {
       try {
-        Map<String, dynamic> res =
+        List<Map<String, dynamic>> res =
             await _userService.fetchUserDetails(_user.id);
-        _appUser = appUser.User.fromJson(res);
+        _appUser = appUser.User.fromJson(res.first);
         print('[User View Model] User: $_appUser');
         notifyListeners();
       } catch (e) {

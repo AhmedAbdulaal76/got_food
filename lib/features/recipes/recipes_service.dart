@@ -42,4 +42,14 @@ class RecipesService {
     }
   }
 
- }
+  Future<dynamic> deleteRecipe(String recipeId) async {
+    try {
+      var res =
+          await supabase.from('recipes').delete().eq('recipe_id', recipeId);
+      print('[Recipe Service] Recipe deleted');
+      return true;
+    } catch (e) {
+      print('[Recipe Service] Error deleting recipe: $e');
+    }
+  }
+}
