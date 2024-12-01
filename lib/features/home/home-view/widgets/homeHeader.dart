@@ -17,7 +17,7 @@ class HomeHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Hello, ${user?.userMetadata?['display_name'] ?? 'user'}",
+                "Hello, ${user?.userMetadata?['display_name'] ?? 'Guest'}",
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                       overflow: TextOverflow.ellipsis,

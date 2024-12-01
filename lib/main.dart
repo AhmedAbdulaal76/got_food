@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       theme: GotFoodTheme.theme,
       darkTheme: GotFoodTheme.darkTheme,
       themeMode: ThemeMode.system, // default
-      initialRoute: supabase.auth.currentUser != null ? '/home' : '/login',
+      initialRoute: supabase.auth.currentUser != null ? '/home' : '/boarding',
       routes: routes,
       // home: const HomePage(),
     );
