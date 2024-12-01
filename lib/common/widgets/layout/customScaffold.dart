@@ -9,6 +9,8 @@ class CustomScaffold extends StatelessWidget {
     this.showBottomNav = true,
     this.showAppBar = true,
     this.showBackButton = true,
+    this.actionIcon,
+    this.actionFunc,
   });
 
   final String title;
@@ -16,6 +18,8 @@ class CustomScaffold extends StatelessWidget {
   final bool showBottomNav;
   final bool showAppBar;
   final bool showBackButton;
+  final Widget? actionIcon;
+  final Function()? actionFunc;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,12 @@ class CustomScaffold extends StatelessWidget {
           ? AppBar(
               title: Text(title),
               automaticallyImplyLeading: showBackButton,
+              actions: [
+                IconButton(
+                  onPressed: actionFunc,
+                  icon: actionIcon ?? const SizedBox.shrink(),
+                ),
+              ],
             )
           : null,
       body: body,
