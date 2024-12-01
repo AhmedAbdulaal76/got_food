@@ -41,4 +41,5 @@ class RecipesService {
       print('[Recipe Service] Error fetching recipe creator: $e');
     }
   }
-}
+
+ }

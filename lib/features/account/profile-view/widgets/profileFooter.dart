@@ -9,8 +9,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../common/models/recipe.dart';
 import '../../../../main.dart';
 
-class ProfileBody extends StatelessWidget {
-  ProfileBody({super.key});
+class ProfileFooter extends StatelessWidget {
+  ProfileFooter({super.key});
 
 
   @override
