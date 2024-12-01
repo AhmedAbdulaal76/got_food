@@ -3,10 +3,15 @@ import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/widgets/recipe-card/recipesCard.dart';
 
 class RecipesLayout extends StatelessWidget {
-  RecipesLayout({super.key, required this.recipes, this.setFullView = false});
+  RecipesLayout(
+      {super.key,
+      required this.recipes,
+      this.setFullView = false,
+      this.clipBehavior});
 
   final List<Recipe> recipes;
   bool setFullView;
+  Clip? clipBehavior;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class RecipesLayout extends StatelessWidget {
         crossAxisCount: 1,
         childAspectRatio: setFullView ? 1.3 : 1.2,
       ),
-      clipBehavior: Clip.none,
+      clipBehavior: clipBehavior ?? Clip.none,
       itemCount: recipes.length,
       itemBuilder: (context, index) {
         return RecipesCard(recipe: recipes[index], setFullView: setFullView);

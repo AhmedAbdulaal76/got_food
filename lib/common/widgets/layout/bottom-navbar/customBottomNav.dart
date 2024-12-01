@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/providers/bottomNavigationProvider.dart';
-import 'package:got_food/features/auth/login-view/login_viewModel.dart';
 import 'package:provider/provider.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -10,8 +9,8 @@ class CustomBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final BottomNavigationProvider bottomNavigationProvider =
         Provider.of<BottomNavigationProvider>(context);
-    final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
-    bool loginFlag = loginViewModel.loginFlag;
+    // final LoginViewModel loginViewModel = Provider.of<LoginViewModel>(context);
+    // bool loginFlag = loginViewModel.loginFlag;
     return BottomNavigationBar(
       currentIndex: bottomNavigationProvider.selectedIndex,
       onTap: (index) {
@@ -26,6 +25,11 @@ class CustomBottomNav extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.search),
           label: 'Search',
+        ),
+        // + icon to create a new recipe
+        BottomNavigationBarItem(
+          icon: Icon(Icons.add),
+          label: 'Create',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite),

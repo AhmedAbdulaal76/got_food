@@ -14,16 +14,49 @@ class AuthService {
     }
   }
 
-   Future<AuthResponse>  signUp(
+  Future<AuthResponse> signUp(
       {required String email,
       required String password,
       required String username}) async {
     try {
       final AuthResponse res = await supabase.auth.signUp(
           email: email, password: password, data: {'display_name': username});
+      await _registerProfile(username);
       return res;
     } catch (e) {
       print('[Auth Service] Sign up error: $e');
+      rethrow;
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await supabase.auth.signOut();
+    } catch (e) {
+      print('[Auth Service] Sign out error: $e');
+      rethrow;
+    }
+  }
+
+  // Future<void> resetPassword({required String email}) async {
+  //   try {
+  //     await supabase.auth.resetPasswordForEmail(email);
+  //   } catch (e) {
+  //     print('[Auth Service] Reset password error: $e');
+  //     rethrow;
+  //   }
+  // }
+
+  // populate profiles table with user data
+  Future<void> _registerProfile(String username) async {
+    try {
+      var userId = supabase.auth.currentUser?.id;
+      final res = await supabase.from('profiles').insert([
+        {'user_uuid': userId, 'username': username}
+      ]);
+      print('[Auth Service] Profile registered: $res');
+    } catch (e) {
+      print('[Auth Service] Profile registration error: $e');
       rethrow;
     }
   }

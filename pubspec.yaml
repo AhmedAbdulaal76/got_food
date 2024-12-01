@@ -41,6 +41,9 @@ dependencies:
   cached_network_image: ^3.4.1
   supabase_flutter: ^2.0.0
   skeletonizer: ^1.4.2
+  dropdown_search: ^6.0.1
+  image_picker: ^1.1.2
+  carousel_slider: ^5.0.0
 
 
 dev_dependencies:
@@ -69,8 +72,9 @@ flutter:
   assets:
     - .env
     - lib/common/assets/slideshow_images/
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+    - assets/images/chicken.jpeg
+    - assets/images/chocolate-cake.jpg
+    - assets/images/rotten-bird.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

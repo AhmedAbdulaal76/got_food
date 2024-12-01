@@ -7,6 +7,8 @@ import 'package:got_food/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'common/providers/userViewModel.dart';
+
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
   await Supabase.initialize(
@@ -30,11 +32,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel =
+        Provider.of<UserViewModel>(context, listen: false);
+    userViewModel.fetchUserDetails();
     return MaterialApp(
       theme: GotFoodTheme.theme,
       darkTheme: GotFoodTheme.darkTheme,
       themeMode: ThemeMode.system, // default
-      initialRoute: supabase.auth.currentUser != null ? '/home' : '/login',
+      initialRoute: supabase.auth.currentUser != null ? '/home' : '/boarding',
       routes: routes,
       // home: const HomePage(),
     );
