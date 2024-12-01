@@ -14,7 +14,6 @@ class HomeHeader extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width * 0.6,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
