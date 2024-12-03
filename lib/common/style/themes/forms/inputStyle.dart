@@ -29,4 +29,27 @@ class InputStyle {
       focusedErrorBorder: _buildBorder(Colors.red),
     );
   }
+
+  static InputDecorationTheme get darkInputStyle {
+    return InputDecorationTheme(
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      hintStyle: TextStyle(
+        color: ThemeColors.secondaryTextColorDark.withOpacity(0.7),
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
+      floatingLabelStyle: const TextStyle(
+        color: ThemeColors.secondaryTextColorDark,
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
+      filled: true,
+      fillColor: ThemeColors.secondaryColor.withOpacity(0.5),
+      errorMaxLines: 3,
+      enabledBorder: _buildBorder(ThemeColors.primaryColor),
+      focusedBorder: _buildBorder(ThemeColors.secondaryColorDark),
+      errorBorder: _buildBorder(Colors.red),
+      focusedErrorBorder: _buildBorder(Colors.red),
+    );
+  }
 }

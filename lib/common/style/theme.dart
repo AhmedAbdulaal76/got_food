@@ -68,6 +68,7 @@ class GotFoodTheme {
         ),
       ),
       elevatedButtonTheme: ElevatedTheme.theme,
+      inputDecorationTheme: InputStyle.darkInputStyle,
     );
   }
 }

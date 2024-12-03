@@ -31,8 +31,8 @@ class ThemeColors {
   // for dark theme
 
   static const secondaryColor = Color(0xFF183D3D);
-  static const secondaryColorDark = Color.fromARGB(255, 211, 243, 231);
-  static const secondaryColorLight = Color(0xFF183D3D);
+  static const secondaryColorDark = Color.fromARGB(255, 226, 244, 238);
+  static const secondaryColorLight = Color.fromARGB(255, 53, 135, 135);
   static const secondaryColorBright = Color(0xFF76ABAE);
   static const secondaryTextColorDark = Colors.white;
 

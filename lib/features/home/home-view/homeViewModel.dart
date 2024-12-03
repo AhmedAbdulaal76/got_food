@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/category.dart';
 import 'package:got_food/common/models/recipe.dart';
-import 'package:got_food/features/home/home_service.dart';
+import 'package:got_food/common/services/home_service.dart';
 
 class HomeViewModel extends ChangeNotifier {
   final HomeService _homeService;
