@@ -3,10 +3,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/core/appProviders.dart';
 import 'package:got_food/core/locator.dart';
-import 'package:got_food/features/home/home-view/widgets/homePage.dart';
 import 'package:got_food/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import 'common/providers/userViewModel.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -31,12 +32,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    UserViewModel userViewModel =
+        Provider.of<UserViewModel>(context, listen: false);
+    userViewModel.fetchUserDetails();
     return MaterialApp(
       theme: GotFoodTheme.theme,
+      darkTheme: GotFoodTheme.darkTheme,
       themeMode: ThemeMode.system, // default
-      initialRoute: '/home',
+      initialRoute: supabase.auth.currentUser != null ? '/home' : '/boarding',
       routes: routes,
-      home: const HomePage(),
+      // home: const HomePage(),
     );
   }
 }

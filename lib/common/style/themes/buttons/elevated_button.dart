@@ -5,6 +5,7 @@ import '../themeColors.dart';
 class ElevatedTheme {
   static ElevatedButtonThemeData theme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
+      minimumSize: const Size(double.infinity, 38),
       backgroundColor: ThemeColors.primaryColor,
       foregroundColor: ThemeColors.primaryTextColor,
       shadowColor: Colors.black,
@@ -14,7 +15,7 @@ class ElevatedTheme {
       ),
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
-        vertical: 8,
+        vertical: 12,
       ),
     ),
   );
