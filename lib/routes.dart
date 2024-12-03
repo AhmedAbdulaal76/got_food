@@ -6,6 +6,7 @@ import 'package:got_food/features/recipes/recipe-details-view/widgets/recipeDeta
 
 import 'features/auth/login-view/widgets/loginPage.dart';
 import 'features/auth/register-view/widgets/registerPage.dart';
+import 'features/favorites/favoritesPage.dart';
 import 'features/home/home-view/widgets/homePage.dart';
 
 // final arguments = (ModalRoute.of(context)?.settings.arguments ?? <String, dynamic>{}) as Map;
@@ -17,4 +18,5 @@ Map<String, Widget Function(BuildContext)> get routes => {
       '/home/categories/details': (context) => const CategoryDetailsPage(),
       '/profile': (context) => const ProfilePage(),
       '/recipes/recipe-details': (context) => const RecipeDetailsPage(),
+      '/favorites': (context) => FavoritesPage(),
     };

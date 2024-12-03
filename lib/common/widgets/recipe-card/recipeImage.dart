@@ -2,19 +2,40 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
+import 'package:provider/provider.dart';
 
-class RecipeImage extends StatelessWidget {
+import '../../../features/favorites/favoritesViewModel.dart';
+import '../../../main.dart';
+
+class RecipeImage extends StatefulWidget {
   final Recipe recipe;
   final bool setFullView;
-
-  const RecipeImage({
+  late bool favorite;
+   RecipeImage({
     super.key,
     required this.recipe,
     this.setFullView = false,
+     this.favorite = false,
   });
 
   @override
+  _RecipeImageState createState() => _RecipeImageState();
+}
+
+class _RecipeImageState extends State<RecipeImage> {
+  late bool favorite, setFullView;
+  late Recipe recipe;
+  void initState() {
+    super.initState();
+    favorite = widget.favorite; 
+    setFullView = widget.setFullView;
+    recipe = widget.recipe;
+  }
+
+  
+  @override
   Widget build(BuildContext context) {
+    final viewModel = Provider.of<FavoritesViewModel>(context);
     return Stack(
       // fit: StackFit.expand,
       alignment: Alignment.center,
@@ -74,14 +95,23 @@ class RecipeImage extends StatelessWidget {
           top: 8,
           right: 8,
           child: GestureDetector(
-            onTap: () {}, // TODO: Add to favourite
+            onTap: () {
+                setState(() {
+                  favorite ? 
+                      viewModel.removeFromFavorites(supabase.auth.currentUser!.id, recipe)
+                      : viewModel.addToFavorites(supabase.auth.currentUser!.id, recipe);
+
+                  favorite = !favorite;
+                });
+            }, // TODO: Add to favourite
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                 color: ThemeColors.primaryColor,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
+              child: Icon(
+                favorite ? Icons.favorite_rounded:
                 Icons.favorite_border_outlined,
                 color: Colors.white,
               ),

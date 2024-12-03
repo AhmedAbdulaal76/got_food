@@ -23,6 +23,7 @@ class BottomNavigationProvider with ChangeNotifier {
       case 1:
         break;
       case 2:
+        Navigator.pushNamed(context, '/favorites');
         break;
       case 3:
         Navigator.pushNamed(context, '/profile');

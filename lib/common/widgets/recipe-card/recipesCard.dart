@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/widgets/recipe-card/recipeImage.dart';
+import 'package:got_food/features/favorites/favoritesViewModel.dart';
+import 'package:provider/provider.dart';
 
+import '../../../main.dart';
 import '../../models/recipe.dart';
 
 class RecipesCard extends StatelessWidget {
-  const RecipesCard(
-      {super.key, required this.recipe, this.setFullView = false});
-
+  RecipesCard(
+      {super.key, required this.recipe, this.setFullView = false, this.favorite = false});
   final Recipe recipe;
   final bool setFullView;
+  bool favorite;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class RecipesCard extends StatelessWidget {
         margin: setFullView
             ? const EdgeInsets.symmetric(horizontal: 12, vertical: 16)
             : const EdgeInsetsDirectional.only(end: 16, top: 12),
-        height: 240,
+        height:240,
         width: 200,
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -38,7 +41,7 @@ class RecipesCard extends StatelessWidget {
           ],
         ),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+
           crossAxisAlignment: setFullView
               ? CrossAxisAlignment.start
               : CrossAxisAlignment.center,
@@ -47,6 +50,7 @@ class RecipesCard extends StatelessWidget {
             RecipeImage(
               recipe: recipe,
               setFullView: setFullView,
+              favorite: favorite,
             ),
             const SizedBox(height: 8),
             // recipe description
