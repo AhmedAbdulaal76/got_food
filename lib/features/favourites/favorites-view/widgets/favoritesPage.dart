@@ -30,10 +30,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<FavoritesViewModel>(context);
-    // if (supabase.auth.currentUser != null) {
-    //   viewModel.fetchFavorites(supabase.auth.currentUser!.id);
-    //   recipes = viewModel.fetchedRecipes;
-    // }
 
     Widget content = Padding(
       padding: const EdgeInsets.all(8.0),
