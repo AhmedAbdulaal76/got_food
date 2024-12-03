@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/features/account/profile-view/widgets/profilePage.dart';
+import 'package:got_food/features/favourites/favorites-view/widgets/favoritesPage.dart';
 import 'package:got_food/features/home/categories-view/widgets/categoriesPage.dart';
 import 'package:got_food/features/home/category-details-view/widgets/categoryDetailsPage.dart';
 import 'package:got_food/features/recipes/create-recipe-view/widgets/createRecipePage.dart';
@@ -24,5 +25,6 @@ Map<String, Widget Function(BuildContext)> get routes => {
       '/recipes/create-recipe': (context) => const CreateRecipePage(),
       '/search': (context) => const SearchPage(),
       '/boarding': (context) => const BoardingPage(),
-      '/profile/settings': (context) => SettingsPage()
+      '/profile/settings': (context) => SettingsPage(),
+      '/favourites': (context) => const FavoritesPage(),
     };

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/common/widgets/layout/recipesLayout.dart';
+import 'package:got_food/features/favourites/favorites-view/favoritesViewModel.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:got_food/features/home/home-view/widgets/homeHeader.dart';
+import 'package:got_food/main.dart';
 import 'package:provider/provider.dart';
 
 import 'categoryTabs/categoryTabs.dart';
@@ -13,6 +15,12 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favoritesViewModel =
+        Provider.of<FavoritesViewModel>(context, listen: false);
+
+    if (supabase.auth.currentUser != null) {
+      favoritesViewModel.fetchFavorites(supabase.auth.currentUser!.id);
+    }
     final viewModel = Provider.of<HomeViewModel>(context);
     if (viewModel.recipes.isEmpty) {
       viewModel.fetchRecipes();
