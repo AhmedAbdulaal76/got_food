@@ -33,9 +33,9 @@ class HomeHeader extends StatelessWidget {
                   ),
                   // show user image avatar using cached network image
                   const SizedBox(width: 10),
-                  CircleAvatar(
-                    radius: 35,
-                    child: ClipOval(
+                  ClipOval(
+                    child: CircleAvatar(
+                      radius: 35,
                       child: CachedNetworkImage(
                         imageUrl: Provider.of<UserViewModel>(context)
                                 .user
