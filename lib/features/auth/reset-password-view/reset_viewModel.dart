@@ -15,8 +15,6 @@ class ResetViewModel extends ChangeNotifier {
     notifyListeners();
     try {
       final res = await _authService.resetPassword(password: password);
-      await _authService.signOut();
-      Navigator.of(ctx).pushReplacementNamed('/login');
     } catch (e) {
       print('[Reset View Model] Error Resetting Password: $e');
       ScaffoldMessenger.of(ctx).showSnackBar(
