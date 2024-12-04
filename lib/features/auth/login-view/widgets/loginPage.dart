@@ -35,13 +35,14 @@ class _LoginPageState extends State<LoginPage> {
           children: [
             // TODO: pass category pictures as assets or ready-made links
             CircularPageView(
-               imageUrls: [
-                 'lib/common/assets/slideshow_images/breakfast.jpg',
-               'lib/common/assets/slideshow_images/dessert.jpg',
-               'lib/common/assets/slideshow_images/dinner.jpg',
-               'lib/common/assets/slideshow_images/lunch.jpg'],
-               size: 350,
-             ),
+              imageUrls: [
+                'lib/common/assets/slideshow_images/breakfast.jpg',
+                'lib/common/assets/slideshow_images/dessert.jpg',
+                'lib/common/assets/slideshow_images/dinner.jpg',
+                'lib/common/assets/slideshow_images/lunch.jpg'
+              ],
+              size: 350,
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -149,6 +150,32 @@ class _LoginPageState extends State<LoginPage> {
                                     ..onTap = () {
                                       Navigator.pushReplacementNamed(
                                           context, '/signup');
+                                    },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Center(
+                          child: RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              text: "Forgot your password? ",
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 18),
+                              children: [
+                                TextSpan(
+                                  text: 'Click here!',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                    color: ThemeColors.primaryColorDark,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      Navigator.pushReplacementNamed(
+                                          context, '/reset');
                                     },
                                 ),
                               ],
