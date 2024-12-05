@@ -9,6 +9,7 @@ import 'package:got_food/features/recipes/create-recipe-view/widgets/createRecip
 import 'package:got_food/features/recipes/recipe-details-view/widgets/recipeDetailsPage.dart';
 import 'package:got_food/features/search/search-view/widgets/searchPage.dart';
 
+import 'features/account/edit-profile-view/editProfilePage.dart';
 import 'features/account/settingsPage.dart';
 import 'features/auth/boarding-view/widgets/boardingPage.dart';
 import 'features/auth/login-view/widgets/loginPage.dart';
@@ -30,5 +31,6 @@ Map<String, Widget Function(BuildContext)> get routes => {
       '/search': (context) => const SearchPage(),
       '/boarding': (context) => const BoardingPage(),
       '/profile/settings': (context) => SettingsPage(),
+      '/profile/edit-profile': (context) => const EditProfilePage(),
       '/favourites': (context) => const FavoritesPage(),
     };
