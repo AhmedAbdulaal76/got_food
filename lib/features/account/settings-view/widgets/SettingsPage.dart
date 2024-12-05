@@ -4,6 +4,7 @@ import 'package:got_food/features/account/settings-view/widgets/CustomSettingsGr
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:provider/provider.dart';
 import 'package:got_food/common/providers/themeProvider.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../../main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -16,6 +17,9 @@ class SettingsPage extends StatefulWidget {
 class _SettingsState extends State<SettingsPage> {
   String _selectedLanguage = 'English';
   String _selectedTheme = 'System';
+
+  final User? user = Supabase.instance.client.auth.currentUser;
+
 
   void _setTheme(String theme) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
@@ -162,6 +166,7 @@ class _SettingsState extends State<SettingsPage> {
                 items: [
                   CustomSettingsItem(
                     title: "Edit Profile",
+                    subtitle: user?.userMetadata?['display_name'],
                     icon: Icons.edit,
                     onTap: () {
                       Navigator.pushNamedAndRemoveUntil(
