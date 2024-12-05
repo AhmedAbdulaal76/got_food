@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'common/providers/userViewModel.dart';
+import 'common/providers/themeProvider.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: ".env");
@@ -19,7 +20,10 @@ Future<void> main() async {
   setupLocator();
   runApp(
     MultiProvider(
-      providers: appProviders,
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ...appProviders,
+      ],
       child: const MyApp(),
     ),
   );
@@ -35,10 +39,11 @@ class MyApp extends StatelessWidget {
     UserViewModel userViewModel =
         Provider.of<UserViewModel>(context, listen: false);
     userViewModel.fetchUserDetails();
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return MaterialApp(
       theme: GotFoodTheme.theme,
       darkTheme: GotFoodTheme.darkTheme,
-      themeMode: ThemeMode.system, // default
+      themeMode: themeProvider.themeMode,
       initialRoute: supabase.auth.currentUser != null ? '/home' : '/boarding',
       routes: routes,
       // home: const HomePage(),
