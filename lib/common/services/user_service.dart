@@ -17,8 +17,8 @@ class UserService {
     // Update user details
     try {
       final data = {
-        'name': name,
-        if (imageUrl != null) 'image_url': imageUrl,
+        'username': name,
+        if (imageUrl != null) 'imageurl': imageUrl,
       };
 
       final res = await supabase.from('profiles').update(data).eq('user_uuid', userId);

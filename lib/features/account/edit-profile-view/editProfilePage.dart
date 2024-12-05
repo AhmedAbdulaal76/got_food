@@ -60,29 +60,34 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Future<void> _updateProfile() async {
-    final supabase = Supabase.instance.client;
-    final user = supabase.auth.currentUser;
+    if (_nameController.text.isNotEmpty) {
+      try {
+        final user = Supabase.instance.client.auth.currentUser;
+        await Supabase.instance.client
+            .from('profiles')
+            .update({'username': _nameController.text})
+            .eq('user_uuid', user!.id);
 
-    if (user == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No user is signed in.')),
-      );
-      return;
-    }
+        // Update the user metadata locally
+        user.userMetadata!['display_name'] = _nameController.text;
 
-    try {
-      // Update the user's name in the database
-      await _userService.updateUserDetails(user.id, _nameController.text, null);
+        // Save the updated metadata back to Supabase
+        await Supabase.instance.client.auth.updateUser(
+          UserAttributes(data: user.userMetadata!),
+        );
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Profile updated successfully!')),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error updating profile: $e')),
-      );
+        // Reset inputs and navigate back
+        _nameController.clear();
+        Navigator.pop(context, 'updated');
+      } catch (e) {
+        print('Error updating profile: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update profile: $e')),
+        );
+      }
     }
   }
+
 
 
 
@@ -106,7 +111,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
             children: [
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Name'),
+                decoration: const InputDecoration(labelText: 'Updated Name'),
               ),
               const SizedBox(height: 10),
               if (_selectedImage != null)
@@ -121,9 +126,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
               ),
               const SizedBox(height: 20),
               ElevatedButton(
-                onPressed: _updateProfile,
+                onPressed: () async {
+                  try {
+                    // Call the profile update function
+                    await _updateProfile();
+
+                    // Clear the inputs
+                    _nameController.clear();
+
+                    // Navigate back to the profile page
+                    Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
+                  } catch (e) {
+                    print("Error updating profile: $e");
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Failed to update profile: $e")),
+                    );
+                  }
+                },
                 child: const Text('Update Profile'),
               ),
+
             ],
           ),
         ),
