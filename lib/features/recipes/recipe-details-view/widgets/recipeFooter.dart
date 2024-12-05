@@ -46,13 +46,21 @@ class RecipeFooter extends StatelessWidget {
           ),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 20,
-                child: viewModel.isCreatorLoading
-                    ? const CircularProgressIndicator()
-                    : CachedNetworkImage(
-                        imageUrl: viewModel
-                            .fetchedCreators[recipe.creatorId]!.imageUrl),
+              ClipOval(
+                child: CircleAvatar(
+                  radius: 30,
+                  child: viewModel.isCreatorLoading
+                      ? const CircularProgressIndicator()
+                      : CachedNetworkImage(
+                          imageUrl: viewModel
+                              .fetchedCreators[recipe.creatorId]!.imageUrl,
+                          placeholder: (context, url) =>
+                              const Icon(Icons.person),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.person),
+                          fit: BoxFit.cover,
+                        ),
+                ),
               ),
               const SizedBox(width: 8),
               // name of the recipe creator

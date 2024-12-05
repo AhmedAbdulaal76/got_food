@@ -8,6 +8,9 @@ import 'package:got_food/features/account/profile-view/profileViewModel.dart';
 import 'package:got_food/features/auth/auth_service.dart';
 import 'package:got_food/features/auth/login-view/login_viewModel.dart';
 import 'package:got_food/features/auth/register-view/register_viewModel.dart';
+import 'package:got_food/features/auth/reset-password-view/reset_viewModel.dart';
+import 'package:got_food/features/favourites/favorites-view/favoritesViewModel.dart';
+import 'package:got_food/features/favourites/favorites_service.dart';
 import 'package:got_food/features/recipes/recipe-details-view/recipeDetailsViewModel.dart';
 import 'package:got_food/features/recipes/recipes_service.dart';
 import 'package:got_food/features/search/search-view/searchViewModel.dart';
@@ -28,6 +31,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => LoginViewModel(locator<AuthService>()));
   locator
       .registerLazySingleton(() => RegisterViewModel(locator<AuthService>()));
+  locator.registerLazySingleton(() => ResetViewModel(locator<AuthService>()));
   locator.registerLazySingleton(() => RecipesService());
   locator.registerLazySingleton(
       () => RecipeDetailsViewModel(locator<RecipesService>()));
@@ -39,4 +43,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => ProfileService());
   locator
       .registerLazySingleton(() => ProfileViewModel(locator<ProfileService>()));
+  locator.registerLazySingleton(() => FavoritesService());
+  locator.registerLazySingleton(
+      () => FavoritesViewModel(locator<FavoritesService>()));
 }

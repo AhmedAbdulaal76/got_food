@@ -2,6 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
+import 'package:got_food/features/favourites/favorites-view/favoritesViewModel.dart';
+import 'package:got_food/main.dart';
+import 'package:provider/provider.dart';
 
 class RecipeImage extends StatelessWidget {
   final Recipe recipe;
@@ -15,6 +18,8 @@ class RecipeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final favouritesViewModel = Provider.of<FavoritesViewModel>(context);
+    bool isFavorite = favouritesViewModel.isFavorite(recipe.recipeId);
     return Stack(
       // fit: StackFit.expand,
       alignment: Alignment.center,
@@ -64,12 +69,6 @@ class RecipeImage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        // background: Paint()
-                        //   ..color = Theme.of(context)
-                        //       .colorScheme
-                        //       .onSurface
-                        //       .withOpacity(0.4)
-                        //   ..style = PaintingStyle.fill,
                       ),
                 ),
               )
@@ -79,15 +78,24 @@ class RecipeImage extends StatelessWidget {
           top: 8,
           right: 8,
           child: GestureDetector(
-            onTap: () {}, // TODO: Add to favourite
+            onTap: () {
+              favouritesViewModel.context = context;
+              isFavorite
+                  ? favouritesViewModel.removeFromFavorites(
+                      supabase.auth.currentUser!.id, recipe)
+                  : favouritesViewModel.addToFavorites(
+                      supabase.auth.currentUser!.id, recipe);
+            }, // TODO: Add to favourite
             child: Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                 color: ThemeColors.primaryColor,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: const Icon(
-                Icons.favorite_border_outlined,
+              child: Icon(
+                isFavorite
+                    ? Icons.favorite_rounded
+                    : Icons.favorite_border_rounded,
                 color: Colors.white,
               ),
             ),
