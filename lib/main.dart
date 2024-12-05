@@ -6,7 +6,6 @@ import 'package:got_food/core/locator.dart';
 import 'package:got_food/routes.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 import 'common/providers/userViewModel.dart';
 import 'common/providers/themeProvider.dart';
 
@@ -20,10 +19,7 @@ Future<void> main() async {
   setupLocator();
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ...appProviders,
-      ],
+      providers: appProviders,
       child: const MyApp(),
     ),
   );
