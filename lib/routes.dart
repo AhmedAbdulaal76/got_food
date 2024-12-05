@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/features/account/profile-view/widgets/profilePage.dart';
+import 'package:got_food/features/auth/reset-password-view/widgets/forgotPage.dart';
+import 'package:got_food/features/auth/reset-password-view/widgets/resetPasswordPage.dart';
 import 'package:got_food/features/favourites/favorites-view/widgets/favoritesPage.dart';
 import 'package:got_food/features/home/categories-view/widgets/categoriesPage.dart';
 import 'package:got_food/features/home/category-details-view/widgets/categoryDetailsPage.dart';
@@ -19,6 +21,8 @@ Map<String, Widget Function(BuildContext)> get routes => {
       '/home/categories': (context) => const CategoriesPage(),
       '/login': (context) => const LoginPage(),
       '/signup': (context) => SignUpPage(),
+      '/forgot': (context) => const ForgotPage(),
+      '/reset-password': (context) => const ResetPasswordPage(),
       '/home/categories/details': (context) => const CategoryDetailsPage(),
       '/profile': (context) => ProfilePage(),
       '/recipes/recipe-details': (context) => const RecipeDetailsPage(),
