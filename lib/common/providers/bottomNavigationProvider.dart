@@ -27,6 +27,7 @@ class BottomNavigationProvider with ChangeNotifier {
             : Navigator.pushReplacementNamed(context, '/recipes/create-recipe');
         break;
       case 3: // favourites
+        Navigator.pushNamed(context, '/favourites');
         break;
       case 4: // profile
         Navigator.pushNamed(context, '/profile');

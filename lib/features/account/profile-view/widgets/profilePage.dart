@@ -41,14 +41,32 @@ class ProfilePage extends StatelessWidget {
                               fontSize: 22),
                         ),
                       ),
-                      profileViewModel.recipes.isEmpty
-                          ? const CircularProgressIndicator()
-                          : SizedBox(
-                              height: 270,
-                              child: RecipesLayout(
-                                  recipes:
-                                      profileViewModel.fetchedMap[user?.id]!),
-                            ),
+                      const SizedBox(height: 16),
+                      profileViewModel.isLoading
+                          ? const Center(child: CircularProgressIndicator())
+                          : profileViewModel.recipes.isEmpty
+                              ? Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 24, vertical: 12),
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.pushNamed(
+                                            context, '/create-recipe');
+                                      },
+                                      child: const Text(
+                                        'Create your first recipe',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(
+                                  height: 270,
+                                  child: RecipesLayout(
+                                      recipes: profileViewModel
+                                          .fetchedMap[user?.id]!),
+                                ),
                       ProfileFooter(),
                     ],
                   ),

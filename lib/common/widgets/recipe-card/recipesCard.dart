@@ -5,10 +5,16 @@ import '../../models/recipe.dart';
 
 class RecipesCard extends StatelessWidget {
   const RecipesCard(
-      {super.key, required this.recipe, this.setFullView = false});
+      {super.key,
+      required this.recipe,
+      this.setFullView = false,
+      this.padding,
+      this.margin});
 
   final Recipe recipe;
   final bool setFullView;
+  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry? margin;
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +24,14 @@ class RecipesCard extends StatelessWidget {
             arguments: recipe);
       },
       child: Container(
-        padding: setFullView
-            ? const EdgeInsets.symmetric(horizontal: 12, vertical: 20)
-            : const EdgeInsets.all(16),
-        margin: setFullView
-            ? const EdgeInsets.symmetric(horizontal: 12, vertical: 16)
-            : const EdgeInsetsDirectional.only(end: 16, top: 12),
+        padding: padding ??
+            (setFullView
+                ? const EdgeInsets.symmetric(horizontal: 12, vertical: 20)
+                : const EdgeInsets.all(16)),
+        margin: margin ??
+            (setFullView
+                ? const EdgeInsets.symmetric(horizontal: 12, vertical: 16)
+                : const EdgeInsetsDirectional.only(end: 16, top: 12)),
         height: 240,
         width: 200,
         decoration: BoxDecoration(
