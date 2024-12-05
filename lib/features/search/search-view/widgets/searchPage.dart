@@ -86,34 +86,42 @@ class SearchPage extends StatelessWidget {
 
     // have a column of search bar, search results
     return CustomScaffold(
-        title: 'Search',
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-            child: Expanded(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // search bar
-                  TextFormField(
-                    controller: searchController,
-                    textInputAction: TextInputAction.search,
-                    onFieldSubmitted: (value) {
-                      viewModel.searchRecipes(value);
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Search for recipes',
-                      prefixIcon: Icon(Icons.search),
+      title: 'Search',
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+          child: Expanded(
+            child: Column(
+              children: [
+                // search bar
+                TextFormField(
+                  controller: searchController,
+                  textInputAction: TextInputAction.search,
+                  onFieldSubmitted: (value) {
+                    viewModel.searchRecipes(value);
+                  },
+                  onChanged: (value) {
+                    if (value.isEmpty) {}
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search for recipes',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: GestureDetector(
+                      child: const Icon(Icons.clear),
+                      onTap: () {
+                        searchController.clear();
+                      },
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  // search results
-                  content,
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                // search results
+                content,
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
