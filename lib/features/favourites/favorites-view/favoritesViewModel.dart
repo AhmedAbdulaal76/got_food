@@ -52,6 +52,7 @@ class FavoritesViewModel extends ChangeNotifier {
           content: const Text('Removed from favorites'),
           action: SnackBarAction(
             label: 'Undo',
+            textColor: Theme.of(ctx).colorScheme.surface,
             onPressed: () {
               addToFavorites(userId, recipe);
             },
