@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:got_food/common/style/themes/themeColors.dart';
 import 'package:got_food/common/widgets/buttons/customButton.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
+import 'package:got_food/common/widgets/other/slideshow.dart';
 import 'package:got_food/features/auth/auth_service.dart';
 import 'package:provider/provider.dart';
-import 'package:got_food/common/widgets/other/slideshow.dart';
+
 import '../login_viewModel.dart';
 
 class LoginPage extends StatefulWidget {
@@ -30,11 +31,16 @@ class _LoginPageState extends State<LoginPage> {
     return CustomScaffold(
       title: 'Login to Your Account',
       showBottomNav: false,
+      actionIcon: const Icon(
+        Icons.next_plan_rounded,
+        size: 36,
+        color: Colors.white,
+      ),
+      actionFunc: () => Navigator.pushReplacementNamed(context, '/home'),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // TODO: pass category pictures as assets or ready-made links
-            CircularPageView(
+            const CircularPageView(
               imageUrls: [
                 'lib/common/assets/slideshow_images/breakfast.jpg',
                 'lib/common/assets/slideshow_images/dessert.jpg',

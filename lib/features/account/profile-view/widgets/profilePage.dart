@@ -16,12 +16,14 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
-    profileViewModel.fetchRecipesByUserId(user!.id);
+    if (user != null) {
+      profileViewModel.fetchRecipesByUserId(user!.id);
+    }
     return CustomScaffold(
         title: 'Profile',
-        body: SingleChildScrollView(
-          child: supabase.auth.currentUser != null
-              ? Padding(
+        body: supabase.auth.currentUser != null
+            ? SingleChildScrollView(
+                child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -70,20 +72,20 @@ class ProfilePage extends StatelessWidget {
                       ProfileFooter(),
                     ],
                   ),
-                )
-              : Center(
-                  child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: const Text(
-                      'Login please to see ur profile',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                ),
+              )
+            : Center(
+                child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text(
+                    'Login please to see ur profile',
+                    style: TextStyle(color: Colors.white),
                   ),
-                )),
-        ));
+                ),
+              )));
   }
 }
