@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:got_food/common/models/user.dart';
-import 'package:got_food/common/providers/userViewModel.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:provider/provider.dart';
+import 'package:got_food/main.dart';
 
 import 'recipeForm.dart';
 
@@ -11,10 +9,8 @@ class CreateRecipePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    User? user = Provider.of<UserViewModel>(context).user;
-
     Widget? content;
-    if (user == null) {
+    if (supabase.auth.currentSession == null) {
       content = Center(
         child: Padding(
           padding: const EdgeInsets.all(16),
