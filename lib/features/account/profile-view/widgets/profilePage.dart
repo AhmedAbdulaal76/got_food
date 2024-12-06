@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:got_food/features/account/profile-view/widgets/profileFooter.dart';
 import 'package:got_food/features/account/profile-view/widgets/profileHeader.dart';
 import 'package:got_food/main.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,9 @@ import '../profileViewModel.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
+
   final User? user = Supabase.instance.client.auth.currentUser;
+
   @override
   Widget build(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
@@ -69,7 +70,7 @@ class ProfilePage extends StatelessWidget {
                                       recipes: profileViewModel
                                           .fetchedMap[user?.id]!),
                                 ),
-                      ProfileFooter(),
+                      // ProfileFooter(),
                     ],
                   ),
                 ),
@@ -86,6 +87,11 @@ class ProfilePage extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-              )));
+              )),
+      actionIcon: const Icon(Icons.settings),
+      actionFunc: () {
+        Navigator.pushNamed(context, '/profile/settings',);
+      },
+    );
   }
 }
