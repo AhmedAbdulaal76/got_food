@@ -9,7 +9,8 @@ class SearchViewModel extends ChangeNotifier {
   final SearchService _searchService;
 
   SearchViewModel(this._searchService);
-
+  List<String> _searchHistory = [];
+  List<String> get searchHistory => List.unmodifiable(_searchHistory);
   List<Recipe> recipes = [];
   bool isLoading = false;
   bool searched = false;
@@ -19,6 +20,9 @@ class SearchViewModel extends ChangeNotifier {
     isLoading = true;
     searched = true;
     try {
+      if (!_searchHistory.contains(query)) {
+        _searchHistory.add(query); // Save to history
+      }
       List<dynamic> response = await _searchService.searchRecipes(query);
       recipes = response.map((e) => Recipe.fromJson(e)).toList();
     } catch (e) {
@@ -27,5 +31,9 @@ class SearchViewModel extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
     }
+  }
+  void clearHistory() {
+    _searchHistory.clear();
+    notifyListeners();
   }
 }

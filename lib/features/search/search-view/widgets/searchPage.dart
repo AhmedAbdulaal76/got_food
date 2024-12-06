@@ -16,7 +16,7 @@ class SearchPage extends StatelessWidget {
 
     // controller
     final TextEditingController searchController =
-        TextEditingController(text: viewModel.searchQuery);
+    TextEditingController(text: viewModel.searchQuery);
 
     Widget content;
     if (viewModel.isLoading) {
@@ -49,7 +49,7 @@ class SearchPage extends StatelessWidget {
             height: 500,
             child: RecipesLayout(
               recipes:
-                  Provider.of<HomeViewModel>(context, listen: false).recipes,
+              Provider.of<HomeViewModel>(context, listen: false).recipes,
               setFullView: true,
               clipBehavior: Clip.hardEdge,
               // setFullView: true,
@@ -68,8 +68,8 @@ class SearchPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge),
               Text('(${viewModel.recipes.length})',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      )),
+                    color: Theme.of(context).colorScheme.secondary,
+                  )),
             ],
           ),
           const SizedBox(height: 20),
@@ -86,42 +86,65 @@ class SearchPage extends StatelessWidget {
 
     // have a column of search bar, search results
     return CustomScaffold(
-      title: 'Search',
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-          child: Expanded(
-            child: Column(
-              children: [
-                // search bar
-                TextFormField(
-                  controller: searchController,
-                  textInputAction: TextInputAction.search,
-                  onFieldSubmitted: (value) {
-                    viewModel.searchRecipes(value);
-                  },
-                  onChanged: (value) {
-                    if (value.isEmpty) {}
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Search for recipes',
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: GestureDetector(
-                      child: const Icon(Icons.clear),
-                      onTap: () {
-                        searchController.clear();
-                      },
+        title: 'Search',
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+            child: Expanded(
+              child: Column(
+                // mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // search bar
+                  TextFormField(
+                    controller: searchController,
+                    textInputAction: TextInputAction.search,
+                    onFieldSubmitted: (value) {
+                      viewModel.searchRecipes(value);
+                    },
+                    decoration: const InputDecoration(
+                      hintText: 'Search for recipes',
+                      prefixIcon: Icon(Icons.search),
                     ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                // search results
-                content,
-              ],
+                  const SizedBox(height: 20),
+                  if (viewModel.searchHistory.isNotEmpty)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Search History',
+                              style: Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                viewModel.clearHistory();
+                              },
+                              child: const Text('Clear'),
+                            ),
+                          ],
+                        ),
+                        ...viewModel.searchHistory.map((query) {
+                          return ListTile(
+                            title: Text(query),
+                            onTap: () {
+                              searchController.text = query;
+                              viewModel.searchRecipes(query);
+                            },
+                          );
+                        }).toList(),
+                      ],
+                    ),
+                  const SizedBox(height: 20),
+                  // search results
+                  content,
+                ],
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }
