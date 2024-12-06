@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/models/recipe.dart';
-import 'package:got_food/common/services/profile_service.dart';
+import 'package:got_food/features/account/profile-view/profile_service.dart';
 
 class ProfileViewModel extends ChangeNotifier {
   final ProfileService _profileService;
