@@ -16,12 +16,15 @@ class SearchViewModel extends ChangeNotifier {
   bool searched = false;
   String searchQuery = '';
   Future<void> searchRecipes(String query) async {
+    query = query.trim(); // Remove leading and trailing spaces
+    if (query.isEmpty) return;
     searchQuery = query;
     isLoading = true;
     searched = true;
     try {
       if (!_searchHistory.contains(query)) {
-        _searchHistory.add(query); // Save to history
+        _searchHistory.add(query);
+        // Save to history
       }
       List<dynamic> response = await _searchService.searchRecipes(query);
       recipes = response.map((e) => Recipe.fromJson(e)).toList();

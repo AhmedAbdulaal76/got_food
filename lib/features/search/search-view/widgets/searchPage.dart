@@ -108,6 +108,7 @@ class SearchPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  // Search History
                   if (viewModel.searchHistory.isNotEmpty)
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,30 +116,41 @@ class SearchPage extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Search History',
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
+                            Text('Search History',
+                                style: Theme.of(context).textTheme.titleMedium),
                             TextButton(
-                              onPressed: () {
-                                viewModel.clearHistory();
-                              },
-                              child: const Text('Clear'),
+                              onPressed: viewModel.clearHistory,
+                              style: TextButton.styleFrom(
+                                foregroundColor:
+                                Theme.of(context).colorScheme.error, // Red color
+                              ),
+                              child: const Text('Clear History'),
                             ),
                           ],
                         ),
-                        ...viewModel.searchHistory.map((query) {
-                          return ListTile(
-                            title: Text(query),
-                            onTap: () {
-                              searchController.text = query;
-                              viewModel.searchRecipes(query);
-                            },
-                          );
-                        }).toList(),
+                        SizedBox(
+                          height: 150, // Restrict the height of the search history
+                          child: SingleChildScrollView(
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 8,// Space between chips
+                              children: viewModel.searchHistory
+                                  .map(
+                                    (query) => ActionChip(
+                                  label: Text(query),
+                                  onPressed: () {
+                                    searchController.text = query;
+                                    viewModel.searchRecipes(query);
+                                  },
+                                ),
+                              )
+                                  .toList(),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 20,width: 50),
                   // search results
                   content,
                 ],
