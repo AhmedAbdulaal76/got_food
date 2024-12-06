@@ -41,6 +41,9 @@ dependencies:
   cached_network_image: ^3.4.1
   supabase_flutter: ^2.0.0
   skeletonizer: ^1.4.2
+  flutter_settings_screens: ^0.3.4
+  shared_preferences: ^2.3.3
+  babstrap_settings_screen: ^0.1.7
   dropdown_search: ^6.0.1
   image_picker: ^1.1.2
   carousel_slider: ^5.0.0
