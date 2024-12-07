@@ -89,7 +89,38 @@ class _EditProfilePageState extends State<EditProfilePage> {
         );
       }
     }
+
+    if (_selectedImage != null) {
+      try {
+        final user = Supabase.instance.client.auth.currentUser;
+        // Upload the image to Supabase storage
+        final filePath = 'profile-images/${user?.id}.jpg'; // Unique file path
+        await Supabase.instance.client.storage
+            .from('profiles') // Assuming 'profiles' is the storage bucket
+            .upload(filePath, _selectedImage!);
+
+        // Get the public URL of the uploaded image
+        final imageUrl = Supabase.instance.client.storage
+            .from('profiles')
+            .getPublicUrl(filePath);
+
+        // Update the profile image URL in the database
+        await Supabase.instance.client.from('profiles').update(
+          {'imageurl': imageUrl},
+        ).eq('user_uuid', user!.id);
+
+        print('Image uploaded and profile updated successfully');
+      } catch (e) {
+        print('Error updating profile image: $e');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to update profile image: $e')),
+        );
+      }
+    }
+
   }
+
+
 
   @override
   void initState() {
