@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../../common/providers/userViewModel.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -177,6 +180,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   try {
                     // Call the profile update function
                     await _updateProfile();
+                    final userViewModel = Provider.of<UserViewModel>(context, listen: false);
+                    userViewModel.fetchUserDetails();
 
                     // Clear the inputs
                     _nameController.clear();
