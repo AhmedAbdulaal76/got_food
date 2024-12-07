@@ -2,13 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:got_food/common/services/user_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
-void main() {
-  runApp( const MaterialApp(home: EditProfilePage()));
-}
-
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -18,9 +12,9 @@ class EditProfilePage extends StatefulWidget {
 }
 
 class _EditProfilePageState extends State<EditProfilePage> {
+
   final TextEditingController _nameController = TextEditingController();
   File? _selectedImage;
-  final UserService _userService = UserService();
   bool _isLoading = false;
 
   Future<void> _pickImage() async {
@@ -47,11 +41,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
       return;
     }
 
-    final userDetails = await _userService.fetchUserDetails(user.id);
+    try {
+      // Fetch user details directly from Supabase
+      final response = await Supabase.instance.client
+          .from('profiles')
+          .select()
+          .eq('user_uuid', user.id)
+          .single();  // Get a single record
 
-    if (userDetails != null && userDetails.isNotEmpty) {
-      final userData = userDetails[0];
-      _nameController.text = userData['name'] ?? '';
+      // Populate the name controller with the user's name
+      _nameController.text = response['name'] ?? '';
+      // Optionally, populate other fields like imageUrl if available
+      _selectedImage = response['imageurl'] ?? '';
+        } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error fetching user details: $e')),
+      );
     }
 
     setState(() {
@@ -63,10 +68,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_nameController.text.isNotEmpty) {
       try {
         final user = Supabase.instance.client.auth.currentUser;
-        await Supabase.instance.client
-            .from('profiles')
-            .update({'username': _nameController.text})
-            .eq('user_uuid', user!.id);
+        await Supabase.instance.client.from('profiles').update(
+            {'username': _nameController.text}).eq('user_uuid', user!.id);
 
         // Update the user metadata locally
         user.userMetadata!['display_name'] = _nameController.text;
@@ -88,10 +91,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
     }
   }
 
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -109,20 +108,36 @@ class _EditProfilePageState extends State<EditProfilePage> {
           padding: const EdgeInsets.all(10),
           child: ListView(
             children: [
+              const SizedBox(height: 20),
+              GestureDetector(
+                onTap: _pickImage,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    _selectedImage != null
+                        ? CircleAvatar(
+                      radius: 90,
+                      backgroundImage: FileImage(_selectedImage!),
+                    )
+                        : CircleAvatar(
+                      radius: 90,
+                      backgroundColor: Theme.of(context)
+                          .colorScheme
+                          .primary
+                          .withOpacity(0.5),
+                      child: const Icon(Icons.account_circle, size: 50),
+                    ),
+                    const SizedBox(height: 8), // Space between the avatar and the text
+                    const Text('Tap to Edit',),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 40),
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(labelText: 'Updated Name'),
-              ),
-              const SizedBox(height: 10),
-              if (_selectedImage != null)
-                Image.file(
-                  _selectedImage!,
-                  height: 150,
-                ),
-              TextButton.icon(
-                onPressed: _pickImage,
-                icon: const Icon(Icons.image),
-                label: const Text('Pick Image'),
+                decoration:
+                const InputDecoration(labelText: 'Updated Name'),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
@@ -135,17 +150,18 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     _nameController.clear();
 
                     // Navigate back to the profile page
-                    Navigator.pushNamedAndRemoveUntil(context, '/profile', (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/profile', (route) => false);
                   } catch (e) {
                     print("Error updating profile: $e");
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Failed to update profile: $e")),
+                      SnackBar(
+                          content: Text("Failed to update profile: $e")),
                     );
                   }
                 },
                 child: const Text('Update Profile'),
               ),
-
             ],
           ),
         ),
