@@ -67,7 +67,7 @@ class ProfileHeader extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Navigator.pushNamed(context, '/login');
+              Navigator.pushNamed(context, '/profile/edit-profile');
             },
             child: Text(
               'Edit Profile',
