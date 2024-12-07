@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:got_food/features/account/profile-view/widgets/profileFooter.dart';
 import 'package:got_food/features/account/profile-view/widgets/profileHeader.dart';
 import 'package:got_food/main.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +20,8 @@ class ProfilePage extends StatelessWidget {
     }
     return CustomScaffold(
         title: 'Profile',
+        actionIcon: const Icon(Icons.settings),
+        actionFunc: () => Navigator.pushNamed(context, '/profile/settings'),
         body: supabase.auth.currentUser != null
             ? SingleChildScrollView(
                 child: Padding(
@@ -28,7 +29,7 @@ class ProfilePage extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileHeader(),
+                      const ProfileHeader(),
                       const SizedBox(height: 30),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -65,11 +66,13 @@ class ProfilePage extends StatelessWidget {
                                 )
                               : SizedBox(
                                   height: 270,
-                                  child: RecipesLayout(
-                                      recipes: profileViewModel
-                                          .fetchedMap[user?.id]!),
+                                  child: profileViewModel.isLoading
+                                      ? const CircularProgressIndicator()
+                                      : RecipesLayout(
+                                          recipes: profileViewModel
+                                              .fetchedMap[user?.id]!),
                                 ),
-                      ProfileFooter(),
+                      // ProfileFooter(),
                     ],
                   ),
                 ),
