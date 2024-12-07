@@ -55,7 +55,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       // Populate the name controller with the user's name
       _nameController.text = response['name'] ?? '';
       // Optionally, populate other fields like imageUrl if available
-      _selectedImage = response['imageurl'] ?? '';
+     //_selectedImage = response['imageurl'] ?? '';
         } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error fetching user details: $e')),
