@@ -93,8 +93,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (_selectedImage != null) {
       try {
         final user = Supabase.instance.client.auth.currentUser;
+        DateTime now = DateTime.now();
         // Upload the image to Supabase storage
-        final filePath = 'profile-images/${user?.id}.jpg'; // Unique file path
+        final filePath = 'profile-images-${user?.id}_$now.jpg'; // Unique file path
         await Supabase.instance.client.storage
             .from('profiles') // Assuming 'profiles' is the storage bucket
             .upload(filePath, _selectedImage!);
