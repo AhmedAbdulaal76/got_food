@@ -1,5 +1,5 @@
 # Workflow
-## How to start?
+## How to run?
 1. clone the project
 2. run `flutter pub get` in the terminal
 3. create `.env` file
