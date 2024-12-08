@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:got_food/common/style/theme.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:got_food/features/account/profile-view/widgets/profileFooter.dart';
 import 'package:got_food/features/account/profile-view/widgets/profileHeader.dart';
 import 'package:got_food/main.dart';
 import 'package:provider/provider.dart';
@@ -16,17 +15,21 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileViewModel = Provider.of<ProfileViewModel>(context);
-    profileViewModel.fetchRecipesByUserId(user!.id);
+    if (user != null) {
+      profileViewModel.fetchRecipesByUserId(user!.id);
+    }
     return CustomScaffold(
         title: 'Profile',
-        body: SingleChildScrollView(
-          child: supabase.auth.currentUser != null
-              ? Padding(
+        actionIcon: const Icon(Icons.settings),
+        actionFunc: () => Navigator.pushNamed(context, '/profile/settings'),
+        body: supabase.auth.currentUser != null
+            ? SingleChildScrollView(
+                child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ProfileHeader(),
+                      const ProfileHeader(),
                       const SizedBox(height: 30),
                       Container(
                         alignment: Alignment.centerLeft,
@@ -63,27 +66,29 @@ class ProfilePage extends StatelessWidget {
                                 )
                               : SizedBox(
                                   height: 270,
-                                  child: RecipesLayout(
-                                      recipes: profileViewModel
-                                          .fetchedMap[user?.id]!),
+                                  child: profileViewModel.isLoading
+                                      ? const CircularProgressIndicator()
+                                      : RecipesLayout(
+                                          recipes: profileViewModel
+                                              .fetchedMap[user?.id]!),
                                 ),
-                      ProfileFooter(),
+                      // ProfileFooter(),
                     ],
                   ),
-                )
-              : Center(
-                  child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                    child: const Text(
-                      'Login please to see ur profile',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                ),
+              )
+            : Center(
+                child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text(
+                    'Login please to see ur profile',
+                    style: TextStyle(color: Colors.white),
                   ),
-                )),
-        ));
+                ),
+              )));
   }
 }

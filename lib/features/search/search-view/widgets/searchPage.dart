@@ -1,18 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/common/widgets/layout/recipesLayout.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:got_food/features/search/search-view/searchViewModel.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatelessWidget {
+import 'filter/filter.dart';
+
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  bool isFilterApplied = false;
+  List<Recipe>? recipes;
+
+  void _applyFilter(List<Recipe>? recipes) {
+    // apply filter
+    setState(() {
+      isFilterApplied = true;
+      recipes = recipes;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<SearchViewModel>(context);
-    // form key
-    final formKey = GlobalKey<FormState>();
 
     // controller
     final TextEditingController searchController =
@@ -58,7 +75,6 @@ class SearchPage extends StatelessWidget {
         ],
       );
     } else {
-      // content = RecipesLayout(recipes: viewModel.recipes);
       content = Column(
         children: [
           Row(
@@ -66,7 +82,8 @@ class SearchPage extends StatelessWidget {
             children: [
               Text('Search results',
                   style: Theme.of(context).textTheme.titleLarge),
-              Text('(${viewModel.recipes.length})',
+              Text(
+                  '(${isFilterApplied ? viewModel.filteredRecipes.length : viewModel.recipes.length})',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                       )),
@@ -76,7 +93,9 @@ class SearchPage extends StatelessWidget {
           SizedBox(
             height: 500,
             child: RecipesLayout(
-                recipes: viewModel.recipes,
+                recipes: isFilterApplied
+                    ? viewModel.filteredRecipes
+                    : viewModel.recipes,
                 setFullView: true,
                 clipBehavior: Clip.hardEdge),
           )
@@ -86,34 +105,50 @@ class SearchPage extends StatelessWidget {
 
     // have a column of search bar, search results
     return CustomScaffold(
-        title: 'Search',
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-            child: Expanded(
-              child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // search bar
-                  TextFormField(
-                    controller: searchController,
-                    textInputAction: TextInputAction.search,
-                    onFieldSubmitted: (value) {
-                      viewModel.searchRecipes(value);
-                    },
-                    decoration: const InputDecoration(
-                      hintText: 'Search for recipes',
-                      prefixIcon: Icon(Icons.search),
+      title: 'Search',
+      actionIcon: const Icon(Icons.filter_list),
+      // on press show modal bottom sheet for filtering recipes through calories & time
+      actionFunc: () => showModalBottomSheet(
+          context: context,
+          builder: (ctx) => Filter(
+                onApplyFilter: _applyFilter,
+                isFilterApplied: isFilterApplied,
+              )),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+          child: Expanded(
+            child: Column(
+              children: [
+                // search bar
+                TextFormField(
+                  controller: searchController,
+                  textInputAction: TextInputAction.search,
+                  onFieldSubmitted: (value) {
+                    viewModel.searchRecipes(value);
+                  },
+                  onChanged: (value) {
+                    if (value.isEmpty) {}
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search for recipes',
+                    prefixIcon: const Icon(Icons.search),
+                    suffixIcon: GestureDetector(
+                      child: const Icon(Icons.clear),
+                      onTap: () {
+                        searchController.clear();
+                      },
                     ),
                   ),
-                  const SizedBox(height: 20),
-                  // search results
-                  content,
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                // search results
+                content,
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

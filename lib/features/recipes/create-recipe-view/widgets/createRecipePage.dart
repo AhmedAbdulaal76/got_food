@@ -19,7 +19,7 @@ class CreateRecipePage extends StatelessWidget {
               Navigator.pushNamed(context, '/login');
             },
             child: const Text(
-              'Login please to see ur profile',
+              'Login to create delicous recipes!!',
               style: TextStyle(color: Colors.white),
             ),
           ),
