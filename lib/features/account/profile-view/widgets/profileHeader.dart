@@ -1,76 +1,88 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/user.dart';
+import 'package:got_food/common/providers/userViewModel.dart';
 import 'package:got_food/common/style/theme.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ProfileHeader extends StatelessWidget {
-  ProfileHeader({super.key});
+  const ProfileHeader({super.key});
 
-  final User? user = Supabase.instance.client.auth.currentUser;
+  // final User? user = Supabase.instance.client.auth.currentUser;
 
   @override
   Widget build(BuildContext context) {
+    final User? user = Provider.of<UserViewModel>(context).user;
     return Column(
-      children: [
-        const CircleAvatar(
-          radius: 65,
-          backgroundImage: NetworkImage(
-              "https://mighty.tools/mockmind-api/content/human/5.jpg"
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipOval(
+            child: CircleAvatar(
+              radius: 65,
+              child: CachedNetworkImage(
+                imageUrl: user != null ? user.imageUrl : '',
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+              ),
+            ),
           ),
-        ),
-        SizedBox(height: 15),
-        Text(
+          const SizedBox(height: 15),
+          Text(
             'Chef',
             style: TextStyle(
-                        height: 0.3,
-                        color:Color.alphaBlend(Colors.black.withOpacity(0.3),
-                        GotFoodTheme.kColorScheme.primary),
-                        fontSize: 18, fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic),),
-        Text(
-                " \t ${user?.userMetadata?['display_name']}",
-                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  overflow: TextOverflow.ellipsis,
-                  fontSize: 26,
-                    color:Color.alphaBlend(Colors.black.withOpacity(0.3), GotFoodTheme.kColorScheme.primary)
-                ),
-              ),
-        Text(
-          " \t ${user?.userMetadata?['email']}",
-          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-              fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
-              fontSize: 22,
-              color:Color.alphaBlend(Colors.black.withOpacity(0.3), Colors.grey).withOpacity(0.95)
+                height: 0.3,
+                color: Color.alphaBlend(Colors.black.withOpacity(0.3),
+                    GotFoodTheme.kColorScheme.primary),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                fontStyle: FontStyle.italic),
           ),
-        ),
-        SizedBox(height: 12),
-        Container(
-          alignment: Alignment.center,
-          width: 200,
+          const SizedBox(height: 10),
+          Text(
+            " \t ${user != null ? user.username : 'Guest'}",
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                overflow: TextOverflow.ellipsis,
+                fontSize: 26,
+                color: Color.alphaBlend(Colors.black.withOpacity(0.3),
+                    GotFoodTheme.kColorScheme.primary)),
+          ),
+          // Text(
+          //   " \t ${user.userMetadata?['email']}",
+          //   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+          //       fontWeight: FontWeight.bold,
+          //       fontStyle: FontStyle.italic,
+          //       fontSize: 22,
+          //       color: Color.alphaBlend(Colors.black.withOpacity(0.3), Colors.grey)
+          //           .withOpacity(0.95)),
+          // ),
+          const SizedBox(height: 12),
+          Container(
+            alignment: Alignment.center,
+            width: 200,
             height: 40,
-            child:
-            ElevatedButton(
+            child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-            onPressed: () {
-              Navigator.pushNamed(context, '/login');
-            },
-            child:  Text('Edit Profile',
-                              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                  fontSize: 18,
-                                fontWeight: FontWeight.bold,
-
-                                  ),
-
-            )
-            ),
-        )
-      ]);
+                onPressed: () {
+                  Navigator.pushNamed(context, '/profile/edit-profile');
+                },
+                child: Text(
+                  'Edit Profile',
+                  style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                )),
+          )
+        ]);
   }
 }

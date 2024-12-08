@@ -1,22 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:got_food/common/models/recipe.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:got_food/common/widgets/layout/recipesLayout.dart';
 import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:got_food/features/search/search-view/searchViewModel.dart';
 import 'package:provider/provider.dart';
 
-class SearchPage extends StatelessWidget {
+import 'filter/filter.dart';
+
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  bool isFilterApplied = false;
+  List<Recipe>? recipes;
+
+  void _applyFilter(List<Recipe>? recipes) {
+    // apply filter
+    setState(() {
+      isFilterApplied = true;
+      recipes = recipes;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<SearchViewModel>(context);
-    // form key
-    final formKey = GlobalKey<FormState>();
 
     // controller
     final TextEditingController searchController =
-    TextEditingController(text: viewModel.searchQuery);
+        TextEditingController(text: viewModel.searchQuery);
 
     Widget content;
     if (viewModel.isLoading) {
@@ -49,7 +66,7 @@ class SearchPage extends StatelessWidget {
             height: 500,
             child: RecipesLayout(
               recipes:
-              Provider.of<HomeViewModel>(context, listen: false).recipes,
+                  Provider.of<HomeViewModel>(context, listen: false).recipes,
               setFullView: true,
               clipBehavior: Clip.hardEdge,
               // setFullView: true,
@@ -58,7 +75,6 @@ class SearchPage extends StatelessWidget {
         ],
       );
     } else {
-      // content = RecipesLayout(recipes: viewModel.recipes);
       content = Column(
         children: [
           Row(
@@ -66,17 +82,20 @@ class SearchPage extends StatelessWidget {
             children: [
               Text('Search results',
                   style: Theme.of(context).textTheme.titleLarge),
-              Text('(${viewModel.recipes.length})',
+              Text(
+                  '(${isFilterApplied ? viewModel.filteredRecipes.length : viewModel.recipes.length})',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    color: Theme.of(context).colorScheme.secondary,
-                  )),
+                        color: Theme.of(context).colorScheme.secondary,
+                      )),
             ],
           ),
           const SizedBox(height: 20),
           SizedBox(
             height: 500,
             child: RecipesLayout(
-                recipes: viewModel.recipes,
+                recipes: isFilterApplied
+                    ? viewModel.filteredRecipes
+                    : viewModel.recipes,
                 setFullView: true,
                 clipBehavior: Clip.hardEdge),
           )
@@ -87,13 +106,19 @@ class SearchPage extends StatelessWidget {
     // have a column of search bar, search results
     return CustomScaffold(
         title: 'Search',
+        actionIcon: const Icon(Icons.filter_list),
+        // on press show modal bottom sheet for filtering recipes through calories & time
+        actionFunc: () => showModalBottomSheet(
+            context: context,
+            builder: (ctx) => Filter(
+                  onApplyFilter: _applyFilter,
+                  isFilterApplied: isFilterApplied,
+                )),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
             child: Expanded(
               child: Column(
-                // mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // search bar
                   TextFormField(
@@ -121,36 +146,38 @@ class SearchPage extends StatelessWidget {
                             TextButton(
                               onPressed: viewModel.clearHistory,
                               style: TextButton.styleFrom(
-                                foregroundColor:
-                                Theme.of(context).colorScheme.error, // Red color
+                                foregroundColor: Theme.of(context)
+                                    .colorScheme
+                                    .error, // Red color
                               ),
                               child: const Text('Clear History'),
                             ),
                           ],
                         ),
                         SizedBox(
-                          height: 150, // Restrict the height of the search history
+                          height:
+                              150, // Restrict the height of the search history
                           child: SingleChildScrollView(
                             child: Wrap(
                               spacing: 8,
-                              runSpacing: 8,// Space between chips
+                              runSpacing: 8, // Space between chips
                               children: viewModel.searchHistory
                                   .map(
                                     (query) => ActionChip(
-                                  label: Text(query),
-                                  onPressed: () {
-                                    searchController.text = query;
-                                    viewModel.searchRecipes(query);
-                                  },
-                                ),
-                              )
+                                      label: Text(query),
+                                      onPressed: () {
+                                        searchController.text = query;
+                                        viewModel.searchRecipes(query);
+                                      },
+                                    ),
+                                  )
                                   .toList(),
                             ),
                           ),
                         ),
                       ],
                     ),
-                  const SizedBox(height: 20,width: 50),
+                  const SizedBox(height: 20, width: 50),
                   // search results
                   content,
                 ],

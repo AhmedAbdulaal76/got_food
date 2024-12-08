@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:got_food/features/account/settings-view/widgets/CustomSettingsItem.dart';
-import 'package:got_food/features/account/settings-view/widgets/CustomSettingsGroup.dart';
-import 'package:got_food/common/widgets/layout/customScaffold.dart';
-import 'package:provider/provider.dart';
 import 'package:got_food/common/providers/themeProvider.dart';
+import 'package:got_food/common/widgets/layout/customScaffold.dart';
+import 'package:got_food/features/account/settings-view/widgets/CustomSettingsGroup.dart';
+import 'package:got_food/features/account/settings-view/widgets/CustomSettingsItem.dart';
+import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+
 import '../../../../main.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -20,7 +21,6 @@ class _SettingsState extends State<SettingsPage> {
 
   final User? user = Supabase.instance.client.auth.currentUser;
 
-
   void _setTheme(String theme) {
     final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
 
@@ -30,8 +30,8 @@ class _SettingsState extends State<SettingsPage> {
       ThemeMode themeMode = theme == 'Light'
           ? ThemeMode.light
           : theme == 'Dark'
-          ? ThemeMode.dark
-          : ThemeMode.system;
+              ? ThemeMode.dark
+              : ThemeMode.system;
 
       themeProvider.setThemeMode(themeMode);
     });
@@ -93,7 +93,8 @@ class _SettingsState extends State<SettingsPage> {
                           _selectedLanguage = newValue ?? 'English';
                         });
                       },
-                    ), context: context,
+                    ),
+                    context: context,
                   ),
                 ],
               ),
@@ -106,8 +107,8 @@ class _SettingsState extends State<SettingsPage> {
                     icon: _selectedTheme == 'Dark'
                         ? Icons.dark_mode_rounded
                         : _selectedTheme == 'Light'
-                        ? Icons.light_mode_rounded
-                        : Icons.brightness_auto_rounded,
+                            ? Icons.light_mode_rounded
+                            : Icons.brightness_auto_rounded,
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
@@ -115,11 +116,11 @@ class _SettingsState extends State<SettingsPage> {
                           return Consumer<ThemeProvider>(
                             builder: (context, themeProvider, child) {
                               _selectedTheme = themeProvider.themeMode ==
-                                  ThemeMode.light
+                                      ThemeMode.light
                                   ? 'Light'
                                   : themeProvider.themeMode == ThemeMode.dark
-                                  ? 'Dark'
-                                  : 'System Default';
+                                      ? 'Dark'
+                                      : 'System Default';
 
                               return Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -157,7 +158,8 @@ class _SettingsState extends State<SettingsPage> {
                           );
                         },
                       );
-                    }, context: context,
+                    },
+                    context: context,
                   ),
                 ],
               ),
@@ -172,9 +174,10 @@ class _SettingsState extends State<SettingsPage> {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
                         '/login',
-                            (route) => false,
+                        (route) => false,
                       );
-                    }, context: context,
+                    },
+                    context: context,
                   ),
                 ],
               ),
@@ -187,13 +190,14 @@ class _SettingsState extends State<SettingsPage> {
                     onTap: () {
                       _showConfirmationDialog(
                         "Sign Out",
-                            () async {
+                        () async {
                           await supabase.auth.signOut();
                           Navigator.pushNamedAndRemoveUntil(
                               context, '/login', (route) => false);
                         },
                       );
-                    }, context: context,
+                    },
+                    context: context,
                   ),
                 ],
               ),
@@ -201,8 +205,6 @@ class _SettingsState extends State<SettingsPage> {
           ),
         ),
       ),
-      showBottomNav: true,
-      showBackButton: true,
     );
   }
 }

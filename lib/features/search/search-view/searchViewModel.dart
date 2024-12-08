@@ -9,7 +9,18 @@ class SearchViewModel extends ChangeNotifier {
   final SearchService _searchService;
 
   SearchViewModel(this._searchService);
-  List<String> _searchHistory = [];
+
+  List<double>? caloriesValues;
+  set setCaloriesValues(List<double> values) {
+    caloriesValues = values;
+  }
+
+  List<double>? timeValues;
+  set setTimeValues(List<double> values) {
+    timeValues = values;
+  }
+
+  final List<String> _searchHistory = [];
   List<String> get searchHistory => List.unmodifiable(_searchHistory);
   List<Recipe> recipes = [];
   bool isLoading = false;
@@ -35,6 +46,38 @@ class SearchViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateFilteredRecipes(List<Recipe> filteredRecipes) {
+    recipes = filteredRecipes;
+    notifyListeners();
+  }
+
+  List<Recipe> filteredRecipes = [];
+
+  void fetchFilteredRecipes(double minCalories, double maxCalories,
+      double minTime, double maxTime) async {
+    isLoading = true;
+    try {
+      // locally filter recipes based on calories & time
+      filteredRecipes = recipes
+          .where((recipe) =>
+              recipe.calories >= minCalories &&
+              recipe.calories <= maxCalories &&
+              recipe.time >= minTime &&
+              recipe.time <= maxTime)
+          .toList();
+      // filteredRecipes = recipes
+      //     .where((recipe) =>
+      //         recipe.calories >= minCalories && recipe.calories <= maxCalories)
+      //     .toList();
+    } catch (e) {
+      print('[Search View Model] Error fetching filtered recipes: $e');
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
   void clearHistory() {
     _searchHistory.clear();
     notifyListeners();
