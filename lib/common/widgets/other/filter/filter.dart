@@ -12,13 +12,15 @@ import 'filter_header.dart';
 import 'time_slider.dart';
 
 class Filter extends StatefulWidget {
-  final Function(List<Recipe>) onApplyFilter;
+  final Function(List<Recipe>, {bool isFilterApplied}) onApplyFilter;
   final bool isFilterApplied;
+  final List<Recipe>? recipes;
 
   const Filter({
     super.key,
     required this.onApplyFilter,
     required this.isFilterApplied,
+    required this.recipes,
   });
 
   @override
@@ -49,15 +51,38 @@ class _FilterState extends State<Filter> {
     ]; // Initialize time range values (default to min & max)
   }
 
-  void _submitFilter(SearchViewModel viewModel) async {
-    viewModel.fetchFilteredRecipes(
-      caloriesValues.first,
-      caloriesValues.last,
-      timeValues.first,
-      timeValues.last,
-    ); // Fetch filtered recipes based on selected criteria
-    widget.onApplyFilter(viewModel
-        .filteredRecipes); // Call onApplyFilter in the parent widget to update the recipes list
+  List<Recipe> fetchFilteredRecipes(
+      double minCalories, double maxCalories, double minTime, double maxTime) {
+    try {
+      // locally filter recipes based on calories & time
+      if (widget.recipes != null) {
+        return widget.recipes!
+            .where((recipe) =>
+                recipe.calories >= minCalories &&
+                recipe.calories <= maxCalories &&
+                recipe.time >= minTime &&
+                recipe.time <= maxTime)
+            .toList();
+      }
+    } catch (e) {
+      print('[Filter] Error fetching filtered recipes: $e');
+    }
+    return [];
+  }
+
+  void _submitFilter({bool isFilterApplied = true}) async {
+    // viewModel.fetchFilteredRecipes(
+    //   caloriesValues.first,
+    //   caloriesValues.last,
+    //   timeValues.first,
+    //   timeValues.last,
+    // ); // Fetch filtered recipes based on selected criteria
+    final filteredRecipes = fetchFilteredRecipes(caloriesValues.first,
+        caloriesValues.last, timeValues.first, timeValues.last);
+    widget.onApplyFilter(
+        filteredRecipes, // Pass filtered recipes to the parent widget
+        isFilterApplied:
+            isFilterApplied); // Call onApplyFilter in the parent widget to update the recipes list
     Navigator.pop(context); // Close the filter page after applying the filter
   }
 
@@ -68,7 +93,7 @@ class _FilterState extends State<Filter> {
       timeValues = [minTime, maxTime];
       viewModel.setTimeValues = timeValues;
     });
-    _submitFilter(viewModel); // Submit the cleared filter
+    _submitFilter(isFilterApplied: false); // Submit the cleared filter
   }
 
   @override
@@ -127,7 +152,7 @@ class _FilterState extends State<Filter> {
               onTap: () => _clearFilter(viewModel)), // Clear filter button
           const SizedBox(height: 20),
           ApplyFilterButton(
-              onPressed: () => _submitFilter(viewModel)), // Apply filter button
+              onPressed: () => _submitFilter()), // Apply filter button
         ],
       ),
     );

@@ -14,6 +14,7 @@ import 'package:got_food/features/home/home_service.dart';
 import 'package:got_food/features/recipes/recipe-details-view/recipeDetailsViewModel.dart';
 import 'package:got_food/features/recipes/recipes_service.dart';
 import 'package:got_food/features/search/search-view/searchViewModel.dart';
+import 'package:got_food/features/search/search-view/search_history_repository.dart';
 import 'package:got_food/features/search/search_service.dart';
 
 import '../common/providers/CategoryViewModel.dart';
@@ -38,8 +39,9 @@ void setupLocator() {
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => UserViewModel(locator<UserService>()));
   locator.registerLazySingleton(() => SearchService());
-  locator
-      .registerLazySingleton(() => SearchViewModel(locator<SearchService>()));
+  locator.registerLazySingleton(() => SearchHistoryRepository());
+  locator.registerLazySingleton(() => SearchViewModel(
+      locator<SearchService>(), locator<SearchHistoryRepository>()));
   locator.registerLazySingleton(() => ProfileService());
   locator
       .registerLazySingleton(() => ProfileViewModel(locator<ProfileService>()));
