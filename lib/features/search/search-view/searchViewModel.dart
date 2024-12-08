@@ -28,4 +28,9 @@ class SearchViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void updateFilteredRecipes(List<Recipe> filteredRecipes) {
+    recipes = filteredRecipes;
+    notifyListeners();
+  }
 }

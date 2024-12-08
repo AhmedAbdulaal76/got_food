@@ -87,6 +87,94 @@ class SearchPage extends StatelessWidget {
     // have a column of search bar, search results
     return CustomScaffold(
       title: 'Search',
+      actionIcon: const Icon(Icons.filter_list),
+      // on press show modal bottom sheet for filtering recipes through calories & time
+      actionFunc: () => showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          final formKey = GlobalKey<FormState>();
+          RangeValues calorieRange = const RangeValues(100, 500);
+          RangeValues timeRange = const RangeValues(10, 60);
+
+          return Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Filter recipes',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 20),
+
+                  // Range Slider for Calories
+                  Text(
+                      'Calories Range: ${calorieRange.start.toInt()} - ${calorieRange.end.toInt()}'),
+                  RangeSlider(
+                    values: calorieRange,
+                    min: 0,
+                    max: 1000,
+                    divisions: 20,
+                    labels: RangeLabels(
+                      calorieRange.start.round().toString(),
+                      calorieRange.end.round().toString(),
+                    ),
+                    onChanged: (RangeValues newRange) {
+                      calorieRange = newRange;
+                    },
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Range Slider for Time
+                  Text(
+                      'Time Range (minutes): ${timeRange.start.toInt()} - ${timeRange.end.toInt()}'),
+                  RangeSlider(
+                    values: timeRange,
+                    min: 0,
+                    max: 120,
+                    divisions: 24,
+                    labels: RangeLabels(
+                      timeRange.start.round().toString(),
+                      timeRange.end.round().toString(),
+                    ),
+                    onChanged: (RangeValues newRange) {
+                      timeRange = newRange;
+                    },
+                  ),
+
+                  const SizedBox(height: 20),
+
+                  // Filter Button
+                  ElevatedButton(
+                    onPressed: () {
+                      // Apply filter
+                      if (formKey.currentState!.validate()) {
+                        final filteredRecipes =
+                            viewModel.recipes.where((recipe) {
+                          return recipe.calories >= calorieRange.start &&
+                              recipe.calories <= calorieRange.end &&
+                              recipe.time >= timeRange.start &&
+                              recipe.time <= timeRange.end;
+                        }).toList();
+
+                        // Update the UI or perform any action with the filtered recipes
+                        viewModel.updateFilteredRecipes(filteredRecipes);
+
+                        Navigator.pop(context); // Close the modal
+                      }
+                    },
+                    child: const Text('Filter'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
