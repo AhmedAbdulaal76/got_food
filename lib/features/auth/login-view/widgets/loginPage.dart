@@ -134,22 +134,22 @@ class _LoginPageState extends State<LoginPage> {
                           isLoading: loginViewModel.isLoading,
                           label: 'Login',
                         ),
-                        const SizedBox(height: 12),
+                        const SizedBox(height: 18),
                         // Sign-Up Link
                         Center(
                           child: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text: "Don't have an account yet? ",
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 18),
+                              style: Theme.of(context).textTheme.bodyLarge,
                               children: [
                                 TextSpan(
                                   text: 'Sign up!',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
-                                    color: ThemeColors.primaryColorDark,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     decoration: TextDecoration.underline,
                                   ),
                                   recognizer: TapGestureRecognizer()
@@ -162,20 +162,21 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 8),
                         Center(
                           child: RichText(
                             textAlign: TextAlign.center,
                             text: TextSpan(
                               text: "Forgot your password? ",
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 18),
+                              style: Theme.of(context).textTheme.bodyLarge,
                               children: [
                                 TextSpan(
                                   text: 'Click here!',
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
-                                    color: ThemeColors.primaryColorDark,
+                                    color:
+                                        Theme.of(context).colorScheme.secondary,
                                     decoration: TextDecoration.underline,
                                   ),
                                   recognizer: TapGestureRecognizer()
