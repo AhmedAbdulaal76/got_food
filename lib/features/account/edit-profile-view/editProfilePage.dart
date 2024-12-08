@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:got_food/common/widgets/layout/customScaffold.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,7 +84,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
         );
 
         // Reset inputs and navigate back
-        _nameController.clear();
+        // _nameController.clear();
         // Navigator.pop(context, 'updated');
       } catch (e) {
         print('Error updating profile: $e');
@@ -132,6 +133,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserViewModel>(context, listen: false).user;
     return CustomScaffold(
       title: 'Edit Profile',
       body: _isLoading
@@ -153,14 +155,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                   radius: 90,
                                   backgroundImage: FileImage(_selectedImage!),
                                 )
-                              : CircleAvatar(
-                                  radius: 90,
-                                  backgroundColor: Theme.of(context)
-                                      .colorScheme
-                                      .primary
-                                      .withOpacity(0.5),
-                                  child: const Icon(Icons.account_circle,
-                                      size: 50),
+                              : ClipOval(
+                                  child: CircleAvatar(
+                                    radius: 100,
+                                    backgroundColor: Theme.of(context)
+                                        .colorScheme
+                                        .primary
+                                        .withOpacity(0.5),
+                                    child: CachedNetworkImage(
+                                      imageUrl: user?.imageUrl ?? '',
+                                      placeholder: (context, url) =>
+                                          const CircularProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
                                 ),
                           const SizedBox(
                               height:
