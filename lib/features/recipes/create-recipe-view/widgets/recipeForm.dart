@@ -132,7 +132,6 @@ class _RecipeFormState extends State<RecipeForm> {
         // ingIDs = res.map((e) => e['ingredient_id']).toList();
         ingIDs = res;
         print('ingIDs: $ingIDs');
-
       } catch (e) {
         // if code is 23505, it means there is a duplicate entry, and we can ignore it and continue, otherwise rethrow the error
         if (e.toString().contains('23505')) {
@@ -385,8 +384,10 @@ class _RecipeFormState extends State<RecipeForm> {
               onPressed: () async {
                 if (_formKey.currentState!.validate() && _image != null) {
                   await _saveRecipe(context);
-                  final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
-                  profileViewModel.updateUserRecipes(Supabase.instance.client.auth.currentUser!.id);
+                  final profileViewModel =
+                      Provider.of<ProfileViewModel>(context, listen: false);
+                  profileViewModel.updateUserRecipes(
+                      Supabase.instance.client.auth.currentUser!.id);
                 } else if (_image == null) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
@@ -403,16 +404,7 @@ class _RecipeFormState extends State<RecipeForm> {
                   );
                 }
               },
-              child: Text(
-                'Save Recipe',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.brightness ==
-                            Brightness.light
-                        ? Colors.white
-                        : Colors.black),
-                // : Theme.of(context).colorScheme.onSecondary),
-                // color:  Colors.white),
-              ),
+              child: const Text('Save Recipe'),
             ),
           ),
         ],

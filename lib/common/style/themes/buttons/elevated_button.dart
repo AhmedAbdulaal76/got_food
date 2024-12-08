@@ -7,7 +7,7 @@ class ElevatedTheme {
     style: ElevatedButton.styleFrom(
       minimumSize: const Size(double.infinity, 38),
       backgroundColor: ThemeColors.primaryColor,
-      foregroundColor: ThemeColors.primaryTextColor,
+      foregroundColor: Colors.white,
       shadowColor: Colors.black,
       elevation: 5,
       shape: RoundedRectangleBorder(
