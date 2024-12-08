@@ -19,10 +19,10 @@ class _SearchPageState extends State<SearchPage> {
   bool isFilterApplied = false;
   List<Recipe>? recipes;
 
-  void _applyFilter(List<Recipe>? recipes) {
+  void _applyFilter(List<Recipe>? recipes, {bool isFilterApplied = true}) {
     // apply filter
     setState(() {
-      isFilterApplied = true;
+      this.isFilterApplied = isFilterApplied;
       recipes = recipes;
     });
   }
@@ -80,7 +80,7 @@ class _SearchPageState extends State<SearchPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Search results',
+              Text('Search results ${isFilterApplied ? '(filtered)' : ''}',
                   style: Theme.of(context).textTheme.titleLarge),
               Text(
                   '(${isFilterApplied ? viewModel.filteredRecipes.length : viewModel.recipes.length})',
@@ -127,9 +127,15 @@ class _SearchPageState extends State<SearchPage> {
                     onFieldSubmitted: (value) {
                       viewModel.searchRecipes(value);
                     },
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'Search for recipes',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: GestureDetector(
+                        onTap: () {
+                          searchController.clear();
+                        },
+                        child: const Icon(Icons.clear),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 20),
@@ -141,7 +147,7 @@ class _SearchPageState extends State<SearchPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Search History',
+                            Text('Search History 🕰',
                                 style: Theme.of(context).textTheme.titleMedium),
                             TextButton(
                               onPressed: viewModel.clearHistory,
@@ -156,8 +162,9 @@ class _SearchPageState extends State<SearchPage> {
                         ),
                         SizedBox(
                           height:
-                              150, // Restrict the height of the search history
+                              50, // Restrict the height of the search history
                           child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
                             child: Wrap(
                               spacing: 8,
                               runSpacing: 8, // Space between chips

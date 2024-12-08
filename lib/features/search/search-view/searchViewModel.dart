@@ -74,7 +74,7 @@ class SearchViewModel extends ChangeNotifier {
       print('[Search View Model] Error fetching filtered recipes: $e');
     } finally {
       isLoading = false;
-      notifyListeners();
+      // notifyListeners();
     }
   }
 
