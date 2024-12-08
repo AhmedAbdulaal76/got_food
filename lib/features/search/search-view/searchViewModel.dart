@@ -63,10 +63,6 @@ class SearchViewModel extends ChangeNotifier {
               recipe.time >= minTime &&
               recipe.time <= maxTime)
           .toList();
-      // filteredRecipes = recipes
-      //     .where((recipe) =>
-      //         recipe.calories >= minCalories && recipe.calories <= maxCalories)
-      //     .toList();
     } catch (e) {
       print('[Search View Model] Error fetching filtered recipes: $e');
     } finally {
@@ -74,11 +70,6 @@ class SearchViewModel extends ChangeNotifier {
       // notifyListeners();
     }
   }
-
-  // void clearHistory() {
-  //   _searchHistory.clear();
-  //   notifyListeners();
-  // }
 
   final SearchHistoryRepository _repository;
 

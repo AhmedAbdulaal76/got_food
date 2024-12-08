@@ -6,7 +6,7 @@ import 'package:got_food/features/home/home-view/homeViewModel.dart';
 import 'package:got_food/features/search/search-view/searchViewModel.dart';
 import 'package:provider/provider.dart';
 
-import 'filter/filter.dart';
+import '../../../../common/widgets/other/filter/filter.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -17,13 +17,13 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   bool isFilterApplied = false;
-  List<Recipe>? recipes;
+  List<Recipe> recipes = [];
 
-  void _applyFilter(List<Recipe>? recipes, {bool isFilterApplied = true}) {
+  void _applyFilter(List<Recipe> recipes, {bool isFilterApplied = true}) {
     // apply filter
     setState(() {
       this.isFilterApplied = isFilterApplied;
-      recipes = recipes;
+      this.recipes = recipes;
     });
   }
 
@@ -83,7 +83,7 @@ class _SearchPageState extends State<SearchPage> {
               Text('Search results ${isFilterApplied ? '(filtered)' : ''}',
                   style: Theme.of(context).textTheme.titleLarge),
               Text(
-                  '(${isFilterApplied ? viewModel.filteredRecipes.length : viewModel.recipes.length})',
+                  '(${isFilterApplied ? recipes.length : viewModel.recipes.length})',
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Theme.of(context).colorScheme.secondary,
                       )),
@@ -93,9 +93,7 @@ class _SearchPageState extends State<SearchPage> {
           SizedBox(
             height: 500,
             child: RecipesLayout(
-                recipes: isFilterApplied
-                    ? viewModel.filteredRecipes
-                    : viewModel.recipes,
+                recipes: isFilterApplied ? recipes : viewModel.recipes,
                 setFullView: true,
                 clipBehavior: Clip.hardEdge),
           )
@@ -113,6 +111,7 @@ class _SearchPageState extends State<SearchPage> {
             builder: (ctx) => Filter(
                   onApplyFilter: _applyFilter,
                   isFilterApplied: isFilterApplied,
+                  recipes: viewModel.recipes,
                 )),
         body: SingleChildScrollView(
           child: Padding(
