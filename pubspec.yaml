@@ -34,20 +34,18 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.6
-  provider: ^6.1.2
-  get_it: ^8.0.1
-  flutter_dotenv: ^5.2.1
-  cached_network_image: ^3.4.1
-  supabase_flutter: ^2.0.0
-  skeletonizer: ^1.4.2
-  flutter_settings_screens: ^0.3.4
-  shared_preferences: ^2.3.3
-  dropdown_search: ^6.0.1
-  image_picker: ^1.1.2
-  carousel_slider: ^5.0.0
-  babstrap_settings_screen: ^0.1.7
-  flutter_xlider: ^3.5.0
+  cupertino_icons: ^1.0.6 # icons
+  provider: ^6.1.2 # state management
+  get_it: ^8.0.1 # service locator & singleton
+  flutter_dotenv: ^5.2.1 # environment variables
+  cached_network_image: ^3.4.1 # image caching
+  supabase_flutter: ^2.0.0 # supabase (our db)
+  flutter_settings_screens: ^0.3.4 # settings screen
+  shared_preferences: ^2.3.3 # local storage
+  image_picker: ^1.1.2 # image picker (for taking images from camera/gallery) 
+  carousel_slider: ^5.0.0 # carousel slider (for slideshow)
+  babstrap_settings_screen: ^0.1.7 # settings screen
+  flutter_xlider: ^3.5.0 # slider (another slideshow)
 
 
 dev_dependencies:

@@ -173,7 +173,7 @@ class _SettingsState extends State<SettingsPage> {
                     onTap: () {
                       Navigator.pushNamedAndRemoveUntil(
                         context,
-                        '/login',
+                        '/profile/edit-profile',
                         (route) => false,
                       );
                     },
